@@ -28,8 +28,17 @@
 |---|---|
 | Preview (share with Mike) | https://howe-renovations-preview.netlify.app |
 | Netlify admin | https://app.netlify.com/projects/howe-renovations-preview |
+| Netlify Forms admin | https://app.netlify.com/projects/howe-renovations-preview/forms |
 | GitHub repo | https://github.com/DarthDevon/home-improvement-poc (private) |
 | Future custom domain | howerenovations.com (Mike's; point DNS at Netlify when ready) |
+
+### Form notification wiring (live)
+
+| Form | ID | Notification | Hook ID |
+|---|---|---|---|
+| `estimate` | `6a08924e0428cd0008f04abc` | email → `howerenovationsllc@gmail.com` on `submission_created` | `6a0892c972c0ceac9a8a45ac` |
+
+Submissions hit Mike's Gmail and also stay in the Netlify Forms dashboard. To add a CC, POST another `email` hook to `/api/v1/hooks` with the same `form_id` + a different email. To pause notifications without deleting the hook, PATCH the hook with `{"disabled": true}`.
 
 ---
 
@@ -87,10 +96,7 @@
 ## Next session
 
 1. **Send Mike the preview URL** (`https://howe-renovations-preview.netlify.app`). It's lived-in — real photos, real logo, real project writeups, correct location (O'Fallon, MO).
-2. **Wire form notifications** so Mike actually gets emailed when someone submits the estimate form. Two options:
-   - **Netlify admin UI** (no code): Netlify dashboard → Site → Forms → estimate → Form notifications → Add notification → "Email notification" → enter Mike's email + Devon's email. Submissions also remain visible in the Netlify Forms dashboard.
-   - **Netlify Function** (programmatic): write `netlify/functions/submission-created.js` to handle submissions, send via Resend/SendGrid, store wherever. Overkill for this POC.
-3. **Rotate the leaked Netlify PAT** (`nfp_Gk7…3bz476c`, exposed in 2026-05-15 transcript). Netlify UI → User settings → Applications → Personal access tokens → revoke `Claude Code MCP` → generate new → `claude mcp remove netlify --scope user` + re-add via PowerShell.
+2. **Rotate the leaked Netlify PAT** (`nfp_Gk7…3bz476c`, exposed in 2026-05-15 transcript). Netlify UI → User settings → Applications → Personal access tokens → revoke `Claude Code MCP` → generate new → `claude mcp remove netlify --scope user` + re-add via PowerShell.
 4. **Get a high-res logo from Mike** — the 156×127 crop works for header use but won't hold up at large sizes (hero brand, business cards, etc.). Ask for the original Facebook/builder source if he has it.
 5. **Get real testimonials** (1–3 short quotes from past clients). The testimonial section was removed entirely — add it back when content is available.
 6. **Image optimization** (deferred — only if performance matters): the gallery loads ~60 full-res FB photos. Total page weight is significant. If Mike complains about loading speed, consider Netlify Image CDN (`/.netlify/images?url=...&w=900`) or a build-step compression pass.
@@ -102,6 +108,5 @@
 
 - **High-res logo** (current crop is 156×127 from screenshot).
 - **Real testimonials** (1–3 short quotes from past clients) — testimonial section is currently removed.
-- **Email address(es)** for estimate-form notification routing.
 - Answers to the 6 questions in `instructions-for-mike.txt` (services list refinement, service area specifics, years in business, differentiation, contact preferences, testimonials/logo source).
 - **Confirmation:** replace `howerenovations.com` with new site, or run parallel preview first?
