@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /brand/howe-logo-raw.png
+
+Sitemap: https://howe-renovations-preview.netlify.app/sitemap.xml

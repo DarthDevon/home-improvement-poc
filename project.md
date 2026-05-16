@@ -31,6 +31,23 @@
 | Netlify Forms admin | https://app.netlify.com/projects/howe-renovations-preview/forms |
 | GitHub repo | https://github.com/DarthDevon/home-improvement-poc (private) |
 | Future custom domain | howerenovations.com (Mike's; point DNS at Netlify when ready) |
+| Sitemap | https://howe-renovations-preview.netlify.app/sitemap.xml |
+| robots.txt | https://howe-renovations-preview.netlify.app/robots.txt |
+
+### All discoverable URLs (10)
+
+| URL | Purpose |
+|---|---|
+| `/` | Home — hero, carousel, services, featured work, about, contact |
+| `/gallery.html` | 6 project case studies (Mike's words) |
+| `/areas/ofallon-mo/` | Local landing page — O'Fallon, MO |
+| `/areas/st-charles-mo/` | Local landing page — St. Charles, MO |
+| `/areas/st-peters-mo/` | Local landing page — St. Peters, MO |
+| `/answers/composite-vs-wood-deck-cost-and-lifespan/` | AEO Q&A |
+| `/answers/how-long-does-a-bathroom-remodel-take/` | AEO Q&A |
+| `/answers/how-to-tell-if-deck-or-subfloor-is-rotted/` | AEO Q&A |
+| `/answers/when-to-repair-vs-replace-old-deck/` | AEO Q&A |
+| `/answers/can-you-remove-a-wall-to-open-up-a-kitchen/` | AEO Q&A |
 
 ### Form notification wiring (live)
 
@@ -53,6 +70,14 @@ Submissions hit Mike's Gmail and also stay in the Netlify Forms dashboard. To ad
 - **Hero tagline:** "Make your house a home." (Mike's stated preference). Secondary "We build decks and other stuff!" used as a quote accent in About.
 - **Service categories** rebuilt to match Mike's actual work: Decks & Outdoor / Kitchens / Bathrooms / Carpentry & Built-ins.
 - **Testimonial section removed** entirely (no real testimonials available yet — section will return when Mike provides them).
+- **AEO + SEO foundation shipped** (Tier 1 + Tier 2):
+  - JSON-LD schema: `HomeAndConstructionBusiness` + `OfferCatalog`/`Service` on home, `FAQPage` (6 questions) on home, `BreadcrumbList` everywhere, `ItemList` of 6 projects on gallery, `FAQPage` on each Q&A page, `HomeAndConstructionBusiness` scoped to each city on area pages.
+  - OG + Twitter card meta on both core pages and all 8 new pages.
+  - `sitemap.xml` (10 URLs) and `robots.txt` at root.
+  - 3 service-area pages (O'Fallon, St. Charles, St. Peters).
+  - 5 answer-engine Q&A pages (composite vs wood, bathroom timeline, spotting rot, repair vs replace, kitchen wall removal). Each: direct answer up top, 600–900 words of body, related-question cross-links, CTA, FAQ schema.
+  - Alt text audit on home — every photo has a descriptive alt (not "Composite deck" but "Second-story composite deck with aluminum rails and white lattice skirting").
+  - All canonical URLs use the netlify preview domain for now — to update once `howerenovations.com` DNS points at Netlify (do a find/replace on `howe-renovations-preview.netlify.app` → `howerenovations.com` across the codebase).
 
 ---
 
@@ -68,6 +93,9 @@ Submissions hit Mike's Gmail and also stay in the Netlify Forms dashboard. To ad
 | `instructions-for-mike.txt` | Client-facing FB-export instructions + 6 business questions |
 | `Descriptions/Project N/Project N Description.txt` | Mike's verbatim writeups for all 6 projects |
 | `Images/Project N (Before\|build\|Build\|After)/` | Mike's real photos, all 6 projects. Note: P1-3 use lowercase `build`, P4-6 use capital `Build`. Both work on Netlify. |
+| `areas/<city>/index.html` | 3 city landing pages (O'Fallon, St. Charles, St. Peters) — full Tailwind + schema |
+| `answers/<slug>/index.html` | 5 AEO Q&A pages — direct answer + 600–900-word body + FAQ schema |
+| `sitemap.xml` + `robots.txt` | At root. Sitemap lists all 10 discoverable URLs. Robots allows all + points at sitemap + disallows the raw screenshot logo. |
 | `.gitignore` | Excludes `.vercel`, `.netlify` |
 
 ## Stack
