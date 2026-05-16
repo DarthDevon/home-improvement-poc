@@ -1,5 +1,15 @@
 ---
 Date: 2026-05-16
+Note: **Hydra chat widget installed on all 10 pages.** Embed snippet `<script src="https://app.hydra-help.com/widget.js" data-tenant="howe-renovations-crw9" data-widget="howe-renovations-bd26c1"></script>` placed just before `</body>` in `index.html` + `gallery.html` + the 3 `areas/<city>/index.html` + the 5 `answers/<slug>/index.html`. Salmon `#F9C787` to match the logo. Attached to Mike's default Hydra Support Bot. Tracking + bot-visitor-context both enabled, so the bot sees what page each visitor is on. Knowledge source = the marketing site itself (`crawl_all=true` over the Netlify preview URL); 19 chunks indexed across home, gallery case-studies, the 3 service-area pages, and the 5 AEO Q&A pages. Mike's Hydra tenant slug is `howe-renovations-crw9` (id `706f5877-…`). Reference: deploy `6a08fb455d1014e174c6b9cc` 2026-05-16. To change the widget look or message, edit `widget_configs` row id `057b3975-11bd-4179-a79e-753bfce2ea7a` in Hydra (color, welcome_message, placeholder_text are all PATCH-able via `/api/widgets`).
+---
+
+---
+Date: 2026-05-16
+Note: **This Netlify site is CLI-deployed, NOT GitHub-auto-deployed.** Pushing to `DarthDevon/home-improvement-poc` `main` on GitHub does NOT trigger a Netlify build. Production deploys require `netlify deploy --prod --site=3d292da9-cbe4-4f18-bce5-0b83360a54b9 --dir=. --message="..."` from inside the project directory (or `netlify deploy --prod` once `netlify link` has linked the dir, which it already is). Symptom of the gap: pushed embed snippet to GitHub, curl against the production URL kept returning old HTML until manual `netlify deploy --prod` ran. Wire the GitHub connection in the Netlify dashboard (Site settings → Build & deploy → Continuous deployment → Link repository) before Mike takes ownership — he won't have a CLI workflow, so the site needs auto-deploy from his GitHub fork after transfer.
+---
+
+---
+Date: 2026-05-16
 Note: **Howe Renovations production identifiers (reference card).** Netlify site ID: `3d292da9-cbe4-4f18-bce5-0b83360a54b9`, name `howe-renovations-preview`, team `devonstreckfuss` (Streck Ventures, Free tier). Live URL: https://howe-renovations-preview.netlify.app. Estimate form ID: `6a08924e0428cd0008f04abc` (fields: name/phone/email/project_type/message + honeypot `bot-field`). Email notification hook ID: `6a0892c972c0ceac9a8a45ac` routes `submission_created` → `howerenovationsllc@gmail.com` (Mike's business inbox). GitHub: `DarthDevon/home-improvement-poc` (private). Custom domain to come: `howerenovations.com` (registered in Mike's name; DNS flip pending). Phone in use: 636-697-2408. Color palette: salmon (300=#FBD7B2 / 400=#F9C787 / 500=#EE9F5C / 600=#D67A3D / 700=#B85F2C) sampled from the logo coral pixels (RGB ~249,199,135).
 ---
 

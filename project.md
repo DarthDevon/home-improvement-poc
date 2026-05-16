@@ -1,9 +1,10 @@
 # Howe Renovations POC — Project State
 
-**Status:** SENT TO MIKE FOR REVIEW (2026-05-16). Awaiting feedback. Full site shipped: real logo + all 6 project case studies + hero carousel + form wired to `howerenovationsllc@gmail.com` + AEO/SEO foundation (LocalBusiness/FAQ/Breadcrumb schema, 3 area pages, 5 Q&A pages, sitemap.xml, robots.txt) + 4-column footer exposing the new pages + mobile-optimized (lazy images, visible phone CTA on sub-pages). Review checklist sent: `mike-review-checklist.txt`.
+**Status:** SENT TO MIKE FOR REVIEW (2026-05-16). Awaiting feedback. Full site shipped: real logo + all 6 project case studies + hero carousel + form wired to `howerenovationsllc@gmail.com` + AEO/SEO foundation (LocalBusiness/FAQ/Breadcrumb schema, 3 area pages, 5 Q&A pages, sitemap.xml, robots.txt) + 4-column footer exposing the new pages + mobile-optimized (lazy images, visible phone CTA on sub-pages) + **Hydra chat widget installed on all 10 pages with knowledge source = the marketing site itself (19 chunks indexed)**. Mike's Hydra tenant fully set up (login email also corrected from a `gamil.com` typo in his original signup). Review checklist sent: `mike-review-checklist.txt`.
 **Last updated:** 2026-05-16
-**Last deploy:** Netlify `howe-renovations-preview.netlify.app` — deploy `6a089d9e4e797113be9cf524` (2026-05-16, state: ready, mobile-fix pass).
+**Last deploy:** Netlify `howe-renovations-preview.netlify.app` — deploy `6a08fb455d1014e174c6b9cc` (2026-05-16, Production READY, Hydra widget embed live across all pages).
 **Site ID:** `3d292da9-cbe4-4f18-bce5-0b83360a54b9` (Netlify team `devonstreckfuss` / "Streck Ventures", Free tier).
+**Hydra integration (tenant `howe-renovations-crw9`):** widget slug `howe-renovations-bd26c1` · color `#F9C787` salmon · bot "Support Bot" (`db5eb841-…`) · tracking + bot-visitor-context enabled · knowledge source `38f39669-…` crawls the Netlify preview URL with `crawl_all=true`.
 
 ---
 
@@ -141,7 +142,9 @@ Likely items he'll flag:
 - **Financing info** (GreenSky/Hearth/etc.) if Mike offers it. New section in services or About.
 
 ### Bucket C — ops/handoff (Devon-owned, not Mike)
-- **Rotate the leaked Netlify PAT** (`nfp_Gk7…3bz476c`, exposed in 2026-05-15 transcript). Netlify UI → User settings → Applications → Personal access tokens → revoke → generate new → `claude mcp remove netlify --scope user` + re-add via PowerShell. Token in MCP config at `~/.claude.json` → `mcpServers.netlify.env.NETLIFY_PERSONAL_ACCESS_TOKEN`.
+- **Live walk-through of the Hydra widget with Mike.** Open the site, click the chat bubble, ask a few representative questions — "how long does a bathroom remodel take," "do you serve St. Charles," "what's the difference between composite and wood deck" — to verify the RAG path hits the AEO content. Show Mike his Hydra inbox so he can see conversations land there.
+- **Rotate the leaked Netlify PAT** (`nfp_Gk7…3bz476c`, exposed in 2026-05-15 transcript). Now that Devon has run `netlify login` (OAuth, no PAT needed for CLI), the leaked PAT is safe to revoke. Netlify UI → User settings → Applications → Personal access tokens → revoke. If MCP still uses it, also `claude mcp remove netlify --scope user` + re-add via PowerShell with a fresh PAT.
+- **Wire Netlify GitHub auto-deploy before transferring to Mike.** Right now the site is CLI-deployed only — `git push` does nothing, every deploy requires `netlify deploy --prod --site=3d292da9-… --dir=.`. Mike won't have a CLI workflow. Netlify dashboard → Site settings → Build & deploy → Continuous deployment → Link repository (`DarthDevon/home-improvement-poc`, default branch `main`, build command empty, publish dir `.`). After link, future GitHub pushes auto-deploy.
 - **Domain transition** when Mike approves: he creates own Netlify account → invite as Owner → transfer site → point `howerenovations.com` DNS at Netlify. All canonical URLs / OG URLs / sitemap URLs / schema `@id` fields are currently using `howe-renovations-preview.netlify.app` — do a find/replace across the codebase to `howerenovations.com` after the DNS flip.
 - **Image optimization** (deferred — only if speed is an actual complaint): the gallery loads ~60 full-res FB photos. Consider Netlify Image CDN (`/.netlify/images?url=...&w=900`) or a one-time compression pass.
 

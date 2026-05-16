@@ -8,6 +8,8 @@
 
 ## Recent entries
 
+- 2026-05-16 — **Hydra chat widget installed on all 10 pages (slug `howe-renovations-bd26c1`).** Salmon `#F9C787`, attached to Mike's default Support Bot, tracking + visitor-context on. Knowledge source = the site itself (19 chunks). Edit widget via `widget_configs` id `057b3975-…` (grep: "Hydra chat widget installed on all 10 pages")
+- 2026-05-16 — **Netlify site is CLI-deployed, NOT GitHub-auto-deployed.** `git push` doesn't trigger Netlify. Production deploys need manual `netlify deploy --prod --site=3d292da9-… --dir=.`. Wire the GitHub connection in Netlify dashboard before transfer to Mike (grep: "This Netlify site is CLI-deployed, NOT GitHub-auto-deployed")
 - 2026-05-16 — **Production identifiers (reference card).** Site ID `3d292da9-…`, form ID `6a08924e-…`, hook ID `6a0892c9-…` → `howerenovationsllc@gmail.com`. Phone 636-697-2408. Salmon palette 300-700. (grep: "Howe Renovations production identifiers")
 - 2026-05-16 — **Photo folder case mismatch.** P1-3 lowercase `build`, P4-6 capital `Build`. Gallery's `buildCase` field handles it; both cases resolve 200 on Netlify CDN. (grep: "Photo folder case mismatch")
 - 2026-05-16 — **Logo is a 156×127 screenshot crop.** No higher-res source available — Mike's site is a builder template assembling the mark from CDN SVG primitives. Alpha-masked via PowerShell + System.Drawing. Fine for header, soft at hero size. (grep: "Logo source: cropped from a 156×127 screenshot")
@@ -17,6 +19,12 @@
 - 2026-05-16 — **Buzzfile is not a verification source.** A Buzzfile result that matched a similar business name + phone area code to "603 Coatings LLC" in NH was incorporated as ground truth and propagated through `project.md`, both HTML pages, and LESSONS for a full session before Devon caught it. Lesson: when the client's own live site (or a screenshot from Devon) shows a different city/area code, the live site wins. Buzzfile / OpenCorporates / similar aggregators are LEADS, not facts. (grep: "Buzzfile is not a verification source")
 
 ## Topic clusters
+
+### Hydra integration
+- **Chat widget on all 10 pages** — tenant slug `howe-renovations-crw9`, widget slug `howe-renovations-bd26c1`, knowledge source crawls the site itself (grep: "Hydra chat widget installed on all 10 pages")
+
+### Deploy workflow
+- **Netlify is CLI-deploy, not GitHub-auto** — wire GitHub connection before Mike takes ownership (grep: "This Netlify site is CLI-deployed")
 
 ### Hosting decision
 - **Pivoted from Vercel → Netlify** for commercial-use TOS + free built-in form handling (grep: "POC repo already linked to Vercel")
