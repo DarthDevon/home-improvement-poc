@@ -1,8 +1,8 @@
 # Howe Renovations POC — Project State
 
-**Status:** POC deployed to Netlify; preview URL ready to send to Mike. Vercel project killed. First batch of Mike's real content (Project 1 description + Project 2 photos) in repo.
+**Status:** v2 deployed — real logo, all 6 projects wired in as case studies, hero carousel of best After photos cycling, salmon palette pulled from Mike's logo. Ready to send to Mike for design review.
 **Last updated:** 2026-05-16
-**Last deploy:** Netlify `howe-renovations-preview.netlify.app` — deploy `6a0884d8143b7609c71e30d6` (2026-05-16, state: ready, 26 files, 7s).
+**Last deploy:** Netlify `howe-renovations-preview.netlify.app` — deploy `6a088f0a228bf9d50fd98f5e` (2026-05-16, state: ready, 62 files, 5s).
 **Site ID:** `3d292da9-cbe4-4f18-bce5-0b83360a54b9` (Netlify team `devonstreckfuss` / "Streck Ventures", Free tier).
 
 ---
@@ -13,12 +13,14 @@
 |---|---|
 | Business | Howe Renovations (aka Howe Home Improvement) |
 | Owner | Mike |
-| Location | 40 Winchester Dr, Center Barnstead, NH 03225 |
-| Phone | (603) 776-0611 |
+| Location | 40 Winchester Dr, Center Barnstead, NH 03225 (not on public site — owner address) |
+| Phone (on live site) | **636-697-2408** (Missouri area code — pulled from howerenovations.com/home as of 2026-05-16) |
+| Phone (earlier ref) | (603) 776-0611 — listed in Buzzfile under "603 Coatings LLC", same address. Could be a second/old line. Need Mike to confirm which to use. |
 | FB Page | `facebook.com/pages/category/Contractor/Howe-Home-Improvement-134086539948962/` |
-| Existing site | `howerenovations.com` — stock template, "WELCOME" + contact button only |
-| Tagline (per Mike) | "Make your house a home" — not yet on live site |
-| Likely registered LLC | `603 Coatings LLC` (same phone, per Buzzfile) |
+| Existing site | `howerenovations.com` — Bookmark Connect builder template; HOME page has the real logo + tagline + phone (root URL returns the stock "WELCOME" view) |
+| Real tagline on live site | "We build decks and other stuff!" — using as accent quote in the About section |
+| Mike's stated tagline (per chat history) | "Make your house a home" — using as the primary hero headline |
+| Likely registered LLC | `603 Coatings LLC` (same address, per Buzzfile) |
 
 ---
 
@@ -35,13 +37,13 @@
 
 ## Decisions made
 
-- **Host: Netlify** (Free tier).
-  - Rejected Vercel — Hobby tier is non-commercial; Pro is $20/mo.
-  - Rejected Cloudflare Pages — no built-in form handling.
-  - Netlify Forms ships free (100 submissions/mo) and handles the demo-signup form with zero backend.
-- **Account model:** Devon builds under his Streck Ventures Netlify team → deploys to free preview URL → Mike reviews → Mike creates own account → invite as Owner → transfer site. Domain (`howerenovations.com`) stays in Mike's name throughout.
-- **Content acquisition:** Mike will export FB content via FB's "Download Your Information" tool. Instructions at `instructions-for-mike.txt`. First batch already in (Project 1 description text, Project 2 Before + build photos).
-- **Netlify MCP:** installed at user scope; `create-new-project` and `deploy-site` operations confirmed working in this session via the `@netlify/mcp` server.
+- **Host: Netlify** (Free tier). Vercel killed, Cloudflare Pages ruled out (no built-in form handling).
+- **Account model:** Devon builds under Streck Ventures team → Mike reviews → Mike creates own Netlify account → invite as Owner → transfer site → point `howerenovations.com` DNS at Netlify.
+- **Logo:** real logo cropped from the live site's home page (screenshot via Devon, alpha-masked via PowerShell + System.Drawing). Source asset is only 156×127 — fine for header use at ~50px tall, will look soft if scaled larger. **Need a high-res source from Mike for production.**
+- **Color palette pivot:** ember/amber accent replaced with `salmon` (300–700 scale) sampled from the logo's coral pixels (RGB ~249,199,135). The whole site now tonally matches the brand mark.
+- **Real phone in use:** 636-697-2408 (pulled from live site). Discrepancy with 603 number flagged for Mike to resolve.
+- **Hero tagline:** "Make your house a home." (Mike's stated preference). Secondary "We build decks and other stuff!" used as a quote accent in About.
+- **Service categories** rebuilt to match Mike's actual work: Decks & Outdoor / Kitchens / Bathrooms / Carpentry & Built-ins.
 
 ---
 
@@ -49,44 +51,56 @@
 
 | File | Purpose |
 |---|---|
-| `index.html` | Hero, services, featured work, about, testimonial, contact (placeholder copy + Unsplash photos) |
-| `gallery.html` | Full gallery with category filter + lightbox |
-| `README.md` | POC stack notes + swap-for-real-site checklist |
-| `instructions-for-mike.txt` | Client-facing instructions for FB content export + 6 business questions |
-| `Descriptions/Project 1/Project 1 Description.txt` | Mike's write-up of a rotted-deck-and-subfloor rebuild — usable as Project 1 case study copy |
-| `Images/Project 1 (Before\|build\|After)/` | Mike's real photos for Project 1 (16 photos total) |
-| `Images/Project 2 (Before\|build)/` | Mike's real photos for Project 2 (After folder + description still pending) |
+| `index.html` | Hero (P5 deck bg, "Make your house a home"), Recent Transformations carousel (12 After photos cycling, 5s, pause-on-hover, prev/next + dot nav), Services (4 cards on Mike's real work), Featured Work (3 case-study teasers linking to gallery anchors), About ("We build decks and other stuff!" quote, 3 differentiators), Testimonial (placeholder — flagged), Contact (Netlify Forms wired with honeypot) |
+| `gallery.html` | Six project case studies rendered from JS data: title + category badge + Mike's full Facebook writeup + Before/During/After photo grids, with lightbox + filter chips (All / Decks / Kitchens / Baths / Carpentry) |
+| `brand/howe-logo.png` | Alpha-masked logo, 156×127, transparent bg. Used in header (h-12), mobile menu (h-10), footer (h-8), favicon |
+| `brand/howe-logo-raw.png` | Source screenshot crop (dark bg intact) — keep as a backup |
+| `README.md` | POC stack notes |
+| `instructions-for-mike.txt` | Client-facing FB-export instructions + 6 business questions |
+| `Descriptions/Project N/Project N Description.txt` | Mike's verbatim writeups for all 6 projects |
+| `Images/Project N (Before\|build\|Build\|After)/` | Mike's real photos, all 6 projects. Note: P1-3 use lowercase `build`, P4-6 use capital `Build`. Both work on Netlify. |
 | `.gitignore` | Excludes `.vercel`, `.netlify` |
 
 ## Stack
 
-- Static HTML + Tailwind via CDN
-- Vanilla JS for gallery filter + lightbox
-- Unsplash placeholder photography (to be swapped for Mike's real photos)
+- Static HTML + Tailwind via CDN (custom salmon palette in inline config)
+- Vanilla JS for carousel (intersection-observer pause), gallery filter, lightbox, mobile menu — no libraries
+- All photography is Mike's real work (no Unsplash placeholders remain on either page)
 - Google Fonts (Inter + Fraunces)
 - No build step
 
 ---
 
+## Project map (gallery case studies)
+
+| # | Title | Category | Before / Build / After |
+|---|---|---|---|
+| 1 | Rotted Deck + Subfloor Rescue | Decks | 6 / 5 / 5 |
+| 2 | Custom Oak Staircase Rebuild | Carpentry | 2 / 14 / 4 |
+| 3 | Stone Mantel + Hidden Wiring | Carpentry | 1 / 1 / 2 |
+| 4 | Full Bathroom Gut + Re-Vent | Bathrooms | 3 / 7 / 1 |
+| 5 | Composite Deck Replacement | Decks | 6 / 1 / 6 |
+| 6 | Butcher Block + Open Layout | Kitchens | 2 / 2 / 2 |
+
+---
+
 ## Next session
 
-1. **Send Mike the preview URL** (`https://howe-renovations-preview.netlify.app`) + `instructions-for-mike.txt`. Note: site still has placeholder copy + Unsplash photos — make that explicit so he knows what to react to.
-2. **Rotate the leaked PAT** (token `nfp_Gk7XDTYcz1LJ62JQmvKFCCmhUcCU43bz476c` is in 2026-05-15 transcript). In Netlify: User settings → Applications → Personal access tokens → revoke `Claude Code MCP` → generate new → `claude mcp remove netlify --scope user` + re-add via PowerShell (token never enters chat).
-3. **Wire up real Project 1 + Project 2 content** in `gallery.html` + `index.html`:
-   - Project 1: subtitle "Rotted deck + spongy subfloor rebuild" (per Mike's description). Use Before/build/After folders.
-   - Project 2: ask Mike for After photos + a written description in the same format.
-   - Replace at least 2 Unsplash placeholders on the home page with Project 1 hero shots so the preview looks lived-in.
-4. **Once Mike answers the 6 questions** in `instructions-for-mike.txt`:
-   - Rewrite copy in his voice; add "Make your house a home" tagline.
-   - Wire demo-signup form to Netlify Forms (`<form data-netlify="true">`), set notification email to Mike + Devon.
-5. **When Mike approves the design:** Mike creates Netlify account → invite as Owner → transfer site → point `howerenovations.com` DNS at Netlify (custom domain config in Netlify admin).
+1. **Send Mike the preview URL** (`https://howe-renovations-preview.netlify.app`). It's now lived-in — real photos, real logo, real project writeups. Flag: testimonial section is still a placeholder, and the 636 vs 603 phone needs a confirmation.
+2. **Rotate the leaked Netlify PAT** (`nfp_Gk7…3bz476c`, exposed in 2026-05-15 transcript). Netlify UI → User settings → Applications → Personal access tokens → revoke `Claude Code MCP` → generate new → `claude mcp remove netlify --scope user` + re-add via PowerShell.
+3. **Get a high-res logo from Mike** — the 156×127 crop works for header use but won't hold up at large sizes (hero brand, business cards, etc.). Ask for the original Facebook/builder source if he has it.
+4. **Confirm phone number** with Mike. Site currently uses 636-697-2408 (from his live site). If 603-776-0611 is the real business line, swap throughout (index.html + gallery.html — 4 occurrences total, plus `tel:` hrefs).
+5. **Once Mike approves design:** wire Netlify Forms notification (Netlify admin → Forms → estimate → notifications → email to Mike + Devon). The form already has `data-netlify="true"` and a honeypot — just needs the notification destination.
+6. **Get a real testimonial** from one of Mike's past clients. The placeholder is clearly marked.
+7. **Image optimization** (deferred — only if performance matters): the gallery loads ~60 full-res FB photos. Total page weight is significant. If Mike complains about loading speed, consider Netlify Image CDN (`/.netlify/images?url=...&w=900`) or a build-step compression pass.
+8. **Domain transition:** Mike creates Netlify account → invite as Owner → transfer site → point `howerenovations.com` DNS at Netlify.
 
 ---
 
 ## Outstanding from Mike
 
-- **Partially delivered:** 16 Project 1 photos (Before/build/After) + Project 1 written description + Project 2 Before/build photos.
-- **Still pending for Project 2:** After photos + written description in the same format as Project 1's.
-- Additional projects + the rest of his FB photo library still pending.
-- Answers to the 6 questions in `instructions-for-mike.txt` (services list, service area, years in business, differentiation, contact preferences, testimonials/logo).
-- Confirmation: replace `howerenovations.com` with new site, or run parallel preview first?
+- **Confirm phone number** (636 vs 603).
+- **High-res logo** (current crop is 156×127 from screenshot).
+- **Real testimonials** (1–3 short quotes from past clients).
+- Answers to the 6 questions in `instructions-for-mike.txt` (services list refinement, service area specifics, years in business, differentiation, contact preferences, testimonials/logo source).
+- **Confirmation:** replace `howerenovations.com` with new site, or run parallel preview first?

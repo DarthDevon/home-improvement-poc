@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gallery — Howe Home Improvement</title>
-  <meta name="description" content="A look at recent kitchens, baths, decks, additions, and full-home renovations by Howe Home Improvement." />
+  <title>Project Gallery — Howe Renovations</title>
+  <meta name="description" content="Six recent Howe Renovations projects across Central New Hampshire — decks, kitchens, baths, and the carpentry that holds it all together." />
+  <link rel="icon" type="image/png" href="brand/howe-logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Fraunces:opsz,wght@9..144,500;9..144,700&display=swap" rel="stylesheet" />
@@ -19,7 +20,7 @@
           },
           colors: {
             ink: { 900: '#0b1220', 800: '#101a2e', 700: '#1a2540' },
-            ember: { 400: '#fbbf24', 500: '#f59e0b', 600: '#d97706' },
+            salmon: { 300: '#FBD7B2', 400: '#F9C787', 500: '#EE9F5C', 600: '#D67A3D', 700: '#B85F2C' },
           },
         },
       },
@@ -29,11 +30,17 @@
     html { scroll-behavior: smooth; }
     .grain { background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px); background-size: 3px 3px; }
     .filter-btn { transition: all 200ms ease; }
-    .filter-btn.active { background-color: #f59e0b; color: #0b1220; border-color: #f59e0b; }
-    .gallery-item { transition: opacity 300ms ease, transform 300ms ease; }
-    .gallery-item.hidden-item { display: none; }
+    .filter-btn.active { background-color: #EE9F5C; color: #0b1220; border-color: #EE9F5C; }
     .gallery-img { transition: transform 600ms cubic-bezier(.2,.7,.2,1); }
     .gallery-card:hover .gallery-img { transform: scale(1.06); }
+    .project-section.hidden-item { display: none; }
+    .stage-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: 'Inter', sans-serif; font-size: 11px;
+      letter-spacing: 0.25em; text-transform: uppercase; font-weight: 600;
+      color: #B85F2C;
+    }
+    .stage-label::before { content: ''; width: 24px; height: 1px; background: currentColor; }
 
     /* Lightbox */
     #lightbox {
@@ -56,6 +63,7 @@
     #lightbox .lb-caption {
       position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
       color: white; text-align: center; font-family: 'Fraunces', serif; font-size: 1.25rem;
+      max-width: 90%;
     }
     .mobile-menu { display: none; }
     .mobile-menu.open { display: flex; }
@@ -68,20 +76,20 @@
   <header class="bg-ink-900 text-white">
     <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
       <a href="index.html" class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-md bg-ember-500 flex items-center justify-center font-display font-bold text-ink-900 text-lg">H</div>
+        <img src="brand/howe-logo.png" alt="Howe Renovations logo" class="h-12 w-auto" />
         <div class="leading-tight">
-          <div class="font-display font-bold text-xl tracking-tight">Howe</div>
-          <div class="text-[10px] uppercase tracking-[0.2em] text-stone-300">Home Improvement</div>
+          <div class="font-display font-bold text-xl tracking-[0.18em] uppercase">Howe</div>
+          <div class="text-[10px] uppercase tracking-[0.25em] text-stone-300 -mt-0.5">Renovations</div>
         </div>
       </a>
       <nav class="hidden md:flex items-center gap-10 text-sm font-medium text-stone-100">
-        <a href="index.html#services" class="hover:text-ember-400 transition">Services</a>
-        <a href="gallery.html" class="text-ember-400">Gallery</a>
-        <a href="index.html#about" class="hover:text-ember-400 transition">About</a>
-        <a href="index.html#contact" class="hover:text-ember-400 transition">Contact</a>
+        <a href="index.html#services" class="hover:text-salmon-400 transition">Services</a>
+        <a href="gallery.html" class="text-salmon-400">Gallery</a>
+        <a href="index.html#about" class="hover:text-salmon-400 transition">About</a>
+        <a href="index.html#contact" class="hover:text-salmon-400 transition">Contact</a>
       </nav>
-      <a href="tel:+15555550100" class="hidden md:inline-flex items-center gap-2 bg-ember-500 hover:bg-ember-400 text-ink-900 font-semibold px-5 py-2.5 rounded-md transition">
-        (555) 555-0100
+      <a href="tel:+16366972408" class="hidden md:inline-flex items-center gap-2 bg-salmon-500 hover:bg-salmon-400 text-ink-900 font-semibold px-5 py-2.5 rounded-md transition">
+        636-697-2408
       </a>
       <button id="mobile-menu-btn" class="md:hidden w-11 h-11 flex items-center justify-center text-white" aria-label="Open menu">
         <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
@@ -92,11 +100,11 @@
   <!-- Mobile menu overlay -->
   <div id="mobile-menu" class="mobile-menu md:hidden fixed inset-0 z-[60] bg-ink-900 flex-col">
     <div class="flex items-center justify-between px-6 py-5 border-b border-white/10">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-md bg-ember-500 flex items-center justify-center font-display font-bold text-ink-900 text-lg">H</div>
-        <div class="leading-tight text-white">
-          <div class="font-display font-bold text-xl tracking-tight">Howe</div>
-          <div class="text-[10px] uppercase tracking-[0.2em] text-stone-300">Home Improvement</div>
+      <div class="flex items-center gap-3 text-white">
+        <img src="brand/howe-logo.png" alt="Howe Renovations logo" class="h-10 w-auto" />
+        <div class="leading-tight">
+          <div class="font-display font-bold text-xl tracking-[0.18em] uppercase">Howe</div>
+          <div class="text-[10px] uppercase tracking-[0.25em] text-stone-300 -mt-0.5">Renovations</div>
         </div>
       </div>
       <button id="mobile-menu-close" class="w-11 h-11 flex items-center justify-center text-white" aria-label="Close menu">
@@ -105,14 +113,13 @@
     </div>
     <nav class="flex flex-col p-6 gap-1 text-white">
       <a href="index.html#services" class="py-4 text-2xl font-display font-bold border-b border-white/10">Services</a>
-      <a href="gallery.html" class="py-4 text-2xl font-display font-bold border-b border-white/10 text-ember-400">Gallery</a>
+      <a href="gallery.html" class="py-4 text-2xl font-display font-bold border-b border-white/10 text-salmon-400">Gallery</a>
       <a href="index.html#about" class="py-4 text-2xl font-display font-bold border-b border-white/10">About</a>
       <a href="index.html#contact" class="py-4 text-2xl font-display font-bold border-b border-white/10">Contact</a>
     </nav>
     <div class="mt-auto p-6">
-      <a href="tel:+15555550100" class="flex items-center justify-center gap-2 bg-ember-500 hover:bg-ember-400 text-ink-900 font-semibold px-5 py-4 rounded-md transition w-full text-lg">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 0 1 2-2h2.28a2 2 0 0 1 1.94 1.515l.7 2.8a2 2 0 0 1-.45 1.95l-1.27 1.27a16 16 0 0 0 6.586 6.586l1.27-1.27a2 2 0 0 1 1.95-.45l2.8.7A2 2 0 0 1 21 18.72V21a2 2 0 0 1-2 2h-1C9.716 23 1 14.284 1 4V3z"/></svg>
-        (555) 555-0100
+      <a href="tel:+16366972408" class="flex items-center justify-center gap-2 bg-salmon-500 hover:bg-salmon-400 text-ink-900 font-semibold px-5 py-4 rounded-md transition w-full text-lg">
+        636-697-2408
       </a>
     </div>
   </div>
@@ -121,16 +128,16 @@
   <section class="bg-ink-900 text-white pb-24 relative overflow-hidden">
     <div class="absolute inset-0 grain pointer-events-none"></div>
     <div class="max-w-7xl mx-auto px-6 pt-12 relative">
-      <a href="index.html" class="inline-flex items-center gap-2 text-sm text-stone-400 hover:text-ember-400 transition mb-8">
+      <a href="index.html" class="inline-flex items-center gap-2 text-sm text-stone-400 hover:text-salmon-400 transition mb-8">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
         Back home
       </a>
-      <div class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-ember-400 mb-4">
-        <span class="w-8 h-px bg-ember-400"></span>
-        Our work
+      <div class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-salmon-400 mb-4">
+        <span class="w-8 h-px bg-salmon-400"></span>
+        Project case studies
       </div>
-      <h1 class="font-display font-bold text-4xl sm:text-6xl lg:text-7xl tracking-tight">A few of our favorites.</h1>
-      <p class="mt-5 sm:mt-6 text-base sm:text-lg text-stone-300 max-w-2xl">Every job is different — every one of these started as a sketch on a kitchen table. Filter by space or browse the lot.</p>
+      <h1 class="font-display font-bold text-4xl sm:text-6xl lg:text-7xl tracking-tight">Six recent jobs, in Mike's words.</h1>
+      <p class="mt-5 sm:mt-6 text-base sm:text-lg text-stone-300 max-w-2xl">Before, during, and after — plus the write-up from the Facebook post. Filter by space below.</p>
     </div>
   </section>
 
@@ -138,175 +145,24 @@
   <section class="bg-stone-50 border-b border-stone-200 sticky top-0 z-40">
     <div class="max-w-7xl mx-auto px-6 py-5 flex flex-wrap items-center gap-3" id="filters">
       <button class="filter-btn active px-5 py-2.5 rounded-full border border-stone-300 text-sm font-semibold" data-filter="all">All work</button>
-      <button class="filter-btn px-5 py-2.5 rounded-full border border-stone-300 text-sm font-semibold" data-filter="kitchen">Kitchens</button>
-      <button class="filter-btn px-5 py-2.5 rounded-full border border-stone-300 text-sm font-semibold" data-filter="bath">Bathrooms</button>
-      <button class="filter-btn px-5 py-2.5 rounded-full border border-stone-300 text-sm font-semibold" data-filter="outdoor">Outdoor</button>
-      <button class="filter-btn px-5 py-2.5 rounded-full border border-stone-300 text-sm font-semibold" data-filter="addition">Additions</button>
-      <button class="filter-btn px-5 py-2.5 rounded-full border border-stone-300 text-sm font-semibold" data-filter="exterior">Exterior</button>
+      <button class="filter-btn px-5 py-2.5 rounded-full border border-stone-300 text-sm font-semibold" data-filter="decks">Decks &amp; Outdoor</button>
+      <button class="filter-btn px-5 py-2.5 rounded-full border border-stone-300 text-sm font-semibold" data-filter="kitchens">Kitchens</button>
+      <button class="filter-btn px-5 py-2.5 rounded-full border border-stone-300 text-sm font-semibold" data-filter="baths">Bathrooms</button>
+      <button class="filter-btn px-5 py-2.5 rounded-full border border-stone-300 text-sm font-semibold" data-filter="carpentry">Carpentry &amp; Built-ins</button>
     </div>
   </section>
 
-  <!-- Gallery grid -->
-  <section class="py-16">
-    <div class="max-w-7xl mx-auto px-6">
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" id="gallery-grid">
-        <!-- Items populated below; data-cat drives filtering -->
-        <div class="gallery-item gallery-card group relative overflow-hidden rounded-lg aspect-[4/5] cursor-pointer" data-cat="kitchen" data-title="The Maple Street Remodel — Kitchen" data-img="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1800&q=85">
-          <img class="gallery-img absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=900&q=80" alt="Kitchen remodel" />
-          <div class="absolute inset-0 bg-gradient-to-t from-ink-900/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition"></div>
-          <div class="absolute bottom-0 left-0 p-5 text-white opacity-0 group-hover:opacity-100 transition">
-            <div class="text-xs uppercase tracking-wider text-ember-400">Kitchen</div>
-            <div class="font-display font-bold text-lg">Maple Street Remodel</div>
-          </div>
-        </div>
-
-        <div class="gallery-item gallery-card group relative overflow-hidden rounded-lg aspect-[4/5] cursor-pointer" data-cat="bath" data-title="Hilltop Primary Suite" data-img="https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=1800&q=85">
-          <img class="gallery-img absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=900&q=80" alt="Bathroom suite" />
-          <div class="absolute inset-0 bg-gradient-to-t from-ink-900/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition"></div>
-          <div class="absolute bottom-0 left-0 p-5 text-white opacity-0 group-hover:opacity-100 transition">
-            <div class="text-xs uppercase tracking-wider text-ember-400">Bath</div>
-            <div class="font-display font-bold text-lg">Hilltop Primary Suite</div>
-          </div>
-        </div>
-
-        <div class="gallery-item gallery-card group relative overflow-hidden rounded-lg aspect-[4/5] cursor-pointer" data-cat="outdoor" data-title="Cedar Ridge Deck" data-img="https://images.unsplash.com/photo-1605146768851-eda79da39897?auto=format&fit=crop&w=1800&q=85">
-          <img class="gallery-img absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1605146768851-eda79da39897?auto=format&fit=crop&w=900&q=80" alt="Cedar deck" />
-          <div class="absolute inset-0 bg-gradient-to-t from-ink-900/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition"></div>
-          <div class="absolute bottom-0 left-0 p-5 text-white opacity-0 group-hover:opacity-100 transition">
-            <div class="text-xs uppercase tracking-wider text-ember-400">Outdoor</div>
-            <div class="font-display font-bold text-lg">Cedar Ridge Deck</div>
-          </div>
-        </div>
-
-        <div class="gallery-item gallery-card group relative overflow-hidden rounded-lg aspect-[4/5] cursor-pointer" data-cat="kitchen" data-title="Open-Plan Galley — Riverside" data-img="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=1800&q=85">
-          <img class="gallery-img absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=900&q=80" alt="Open kitchen" />
-          <div class="absolute inset-0 bg-gradient-to-t from-ink-900/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition"></div>
-          <div class="absolute bottom-0 left-0 p-5 text-white opacity-0 group-hover:opacity-100 transition">
-            <div class="text-xs uppercase tracking-wider text-ember-400">Kitchen</div>
-            <div class="font-display font-bold text-lg">Riverside Galley</div>
-          </div>
-        </div>
-
-        <div class="gallery-item gallery-card group relative overflow-hidden rounded-lg aspect-[4/5] cursor-pointer" data-cat="addition" data-title="Second-Story Build — Oak Grove" data-img="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=85">
-          <img class="gallery-img absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=80" alt="Second-story addition" />
-          <div class="absolute inset-0 bg-gradient-to-t from-ink-900/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition"></div>
-          <div class="absolute bottom-0 left-0 p-5 text-white opacity-0 group-hover:opacity-100 transition">
-            <div class="text-xs uppercase tracking-wider text-ember-400">Addition</div>
-            <div class="font-display font-bold text-lg">Oak Grove 2nd Story</div>
-          </div>
-        </div>
-
-        <div class="gallery-item gallery-card group relative overflow-hidden rounded-lg aspect-[4/5] cursor-pointer" data-cat="bath" data-title="Walk-In Wetroom — Linden Ave" data-img="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=1800&q=85">
-          <img class="gallery-img absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=900&q=80" alt="Bath wetroom" />
-          <div class="absolute inset-0 bg-gradient-to-t from-ink-900/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition"></div>
-          <div class="absolute bottom-0 left-0 p-5 text-white opacity-0 group-hover:opacity-100 transition">
-            <div class="text-xs uppercase tracking-wider text-ember-400">Bath</div>
-            <div class="font-display font-bold text-lg">Linden Ave Wetroom</div>
-          </div>
-        </div>
-
-        <div class="gallery-item gallery-card group relative overflow-hidden rounded-lg aspect-[4/5] cursor-pointer" data-cat="outdoor" data-title="Screened Porch — Birchwood" data-img="https://images.unsplash.com/photo-1591389703635-e15a07b842d7?auto=format&fit=crop&w=1800&q=85">
-          <img class="gallery-img absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1591389703635-e15a07b842d7?auto=format&fit=crop&w=900&q=80" alt="Screened porch" />
-          <div class="absolute inset-0 bg-gradient-to-t from-ink-900/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition"></div>
-          <div class="absolute bottom-0 left-0 p-5 text-white opacity-0 group-hover:opacity-100 transition">
-            <div class="text-xs uppercase tracking-wider text-ember-400">Outdoor</div>
-            <div class="font-display font-bold text-lg">Birchwood Porch</div>
-          </div>
-        </div>
-
-        <div class="gallery-item gallery-card group relative overflow-hidden rounded-lg aspect-[4/5] cursor-pointer" data-cat="exterior" data-title="Fiber-Cement Re-Side — Highland" data-img="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=1800&q=85">
-          <img class="gallery-img absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=900&q=80" alt="Home exterior" />
-          <div class="absolute inset-0 bg-gradient-to-t from-ink-900/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition"></div>
-          <div class="absolute bottom-0 left-0 p-5 text-white opacity-0 group-hover:opacity-100 transition">
-            <div class="text-xs uppercase tracking-wider text-ember-400">Exterior</div>
-            <div class="font-display font-bold text-lg">Highland Re-Side</div>
-          </div>
-        </div>
-
-        <div class="gallery-item gallery-card group relative overflow-hidden rounded-lg aspect-[4/5] cursor-pointer" data-cat="kitchen" data-title="Farmhouse Kitchen — Willow Creek" data-img="https://images.unsplash.com/photo-1565538810643-b5bdb714032a?auto=format&fit=crop&w=1800&q=85">
-          <img class="gallery-img absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1565538810643-b5bdb714032a?auto=format&fit=crop&w=900&q=80" alt="Farmhouse kitchen" />
-          <div class="absolute inset-0 bg-gradient-to-t from-ink-900/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition"></div>
-          <div class="absolute bottom-0 left-0 p-5 text-white opacity-0 group-hover:opacity-100 transition">
-            <div class="text-xs uppercase tracking-wider text-ember-400">Kitchen</div>
-            <div class="font-display font-bold text-lg">Willow Creek Farmhouse</div>
-          </div>
-        </div>
-
-        <div class="gallery-item gallery-card group relative overflow-hidden rounded-lg aspect-[4/5] cursor-pointer" data-cat="addition" data-title="In-Law Suite — Stone Ridge" data-img="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1800&q=85">
-          <img class="gallery-img absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=80" alt="In-law suite" />
-          <div class="absolute inset-0 bg-gradient-to-t from-ink-900/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition"></div>
-          <div class="absolute bottom-0 left-0 p-5 text-white opacity-0 group-hover:opacity-100 transition">
-            <div class="text-xs uppercase tracking-wider text-ember-400">Addition</div>
-            <div class="font-display font-bold text-lg">Stone Ridge In-Law</div>
-          </div>
-        </div>
-
-        <div class="gallery-item gallery-card group relative overflow-hidden rounded-lg aspect-[4/5] cursor-pointer" data-cat="bath" data-title="Compact Powder Room — Elm Court" data-img="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1800&q=85">
-          <img class="gallery-img absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=80" alt="Powder room" />
-          <div class="absolute inset-0 bg-gradient-to-t from-ink-900/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition"></div>
-          <div class="absolute bottom-0 left-0 p-5 text-white opacity-0 group-hover:opacity-100 transition">
-            <div class="text-xs uppercase tracking-wider text-ember-400">Bath</div>
-            <div class="font-display font-bold text-lg">Elm Court Powder Room</div>
-          </div>
-        </div>
-
-        <div class="gallery-item gallery-card group relative overflow-hidden rounded-lg aspect-[4/5] cursor-pointer" data-cat="outdoor" data-title="Stone Patio + Pergola — Hawthorne" data-img="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?auto=format&fit=crop&w=1800&q=85">
-          <img class="gallery-img absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?auto=format&fit=crop&w=900&q=80" alt="Stone patio" />
-          <div class="absolute inset-0 bg-gradient-to-t from-ink-900/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition"></div>
-          <div class="absolute bottom-0 left-0 p-5 text-white opacity-0 group-hover:opacity-100 transition">
-            <div class="text-xs uppercase tracking-wider text-ember-400">Outdoor</div>
-            <div class="font-display font-bold text-lg">Hawthorne Patio</div>
-          </div>
-        </div>
-
-        <div class="gallery-item gallery-card group relative overflow-hidden rounded-lg aspect-[4/5] cursor-pointer" data-cat="exterior" data-title="Front Entry Refresh — Magnolia" data-img="https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=1800&q=85">
-          <img class="gallery-img absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=900&q=80" alt="Front entry" />
-          <div class="absolute inset-0 bg-gradient-to-t from-ink-900/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition"></div>
-          <div class="absolute bottom-0 left-0 p-5 text-white opacity-0 group-hover:opacity-100 transition">
-            <div class="text-xs uppercase tracking-wider text-ember-400">Exterior</div>
-            <div class="font-display font-bold text-lg">Magnolia Front Entry</div>
-          </div>
-        </div>
-
-        <div class="gallery-item gallery-card group relative overflow-hidden rounded-lg aspect-[4/5] cursor-pointer" data-cat="kitchen" data-title="Two-Tone Cabinet Build — Sycamore" data-img="https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?auto=format&fit=crop&w=1800&q=85">
-          <img class="gallery-img absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?auto=format&fit=crop&w=900&q=80" alt="Two-tone kitchen" />
-          <div class="absolute inset-0 bg-gradient-to-t from-ink-900/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition"></div>
-          <div class="absolute bottom-0 left-0 p-5 text-white opacity-0 group-hover:opacity-100 transition">
-            <div class="text-xs uppercase tracking-wider text-ember-400">Kitchen</div>
-            <div class="font-display font-bold text-lg">Sycamore Two-Tone</div>
-          </div>
-        </div>
-
-        <div class="gallery-item gallery-card group relative overflow-hidden rounded-lg aspect-[4/5] cursor-pointer" data-cat="bath" data-title="Heated-Floor Guest Bath — Aspen" data-img="https://images.unsplash.com/photo-1600566753086-00f18fe6ba65?auto=format&fit=crop&w=1800&q=85">
-          <img class="gallery-img absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1600566753086-00f18fe6ba65?auto=format&fit=crop&w=900&q=80" alt="Heated floor bath" />
-          <div class="absolute inset-0 bg-gradient-to-t from-ink-900/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition"></div>
-          <div class="absolute bottom-0 left-0 p-5 text-white opacity-0 group-hover:opacity-100 transition">
-            <div class="text-xs uppercase tracking-wider text-ember-400">Bath</div>
-            <div class="font-display font-bold text-lg">Aspen Guest Bath</div>
-          </div>
-        </div>
-
-        <div class="gallery-item gallery-card group relative overflow-hidden rounded-lg aspect-[4/5] cursor-pointer" data-cat="addition" data-title="Garage Conversion → Studio — Pine" data-img="https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1800&q=85">
-          <img class="gallery-img absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=900&q=80" alt="Garage conversion" />
-          <div class="absolute inset-0 bg-gradient-to-t from-ink-900/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition"></div>
-          <div class="absolute bottom-0 left-0 p-5 text-white opacity-0 group-hover:opacity-100 transition">
-            <div class="text-xs uppercase tracking-wider text-ember-400">Addition</div>
-            <div class="font-display font-bold text-lg">Pine Garage Studio</div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
+  <!-- Project case studies (rendered by JS) -->
+  <main id="projects-root" class="py-12 sm:py-16"></main>
 
   <!-- CTA strip -->
   <section class="bg-ink-900 text-white py-16">
     <div class="max-w-4xl mx-auto px-6 text-center">
       <h2 class="font-display font-bold text-3xl sm:text-4xl tracking-tight">See something you like?</h2>
-      <p class="mt-3 text-stone-300">We can probably do a version of it for your place. Reach out and we'll come take a look.</p>
+      <p class="mt-3 text-stone-300">We can do a version of it for your place. Reach out and we'll come take a look.</p>
       <div class="mt-8 flex flex-col sm:flex-row justify-center gap-4">
-        <a href="index.html#contact" class="inline-flex items-center justify-center gap-2 bg-ember-500 hover:bg-ember-400 text-ink-900 font-semibold px-7 py-4 rounded-md transition">Get a free estimate</a>
-        <a href="tel:+15555550100" class="inline-flex items-center justify-center gap-2 border border-white/30 hover:bg-white/10 text-white font-semibold px-7 py-4 rounded-md transition">Call (555) 555-0100</a>
+        <a href="index.html#contact" class="inline-flex items-center justify-center gap-2 bg-salmon-500 hover:bg-salmon-400 text-ink-900 font-semibold px-7 py-4 rounded-md transition">Get a free estimate</a>
+        <a href="tel:+16366972408" class="inline-flex items-center justify-center gap-2 border border-white/30 hover:bg-white/10 text-white font-semibold px-7 py-4 rounded-md transition">Call 636-697-2408</a>
       </div>
     </div>
   </section>
@@ -314,9 +170,9 @@
   <!-- Footer -->
   <footer class="bg-ink-900 border-t border-white/10 text-stone-400">
     <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm">
-      <div class="flex items-center gap-3">
-        <div class="w-8 h-8 rounded-md bg-ember-500 flex items-center justify-center font-display font-bold text-ink-900">H</div>
-        <span>&copy; 2026 Howe Home Improvement. Licensed &amp; insured.</span>
+      <div class="flex items-center gap-3 text-white">
+        <img src="brand/howe-logo.png" alt="Howe Renovations" class="h-8 w-auto" />
+        <span>&copy; 2026 Howe Renovations. Central NH. Licensed &amp; insured.</span>
       </div>
       <div class="flex items-center gap-6">
         <a href="index.html#services" class="hover:text-white transition">Services</a>
@@ -336,7 +192,186 @@
   </div>
 
   <script>
-    // Mobile menu
+    // ---------- Project data ----------
+    // buildCase: lowercase 'build' for P1-3, capital 'Build' for P4-6
+    // (matches what's actually on disk / committed to git, since Netlify is case-sensitive)
+    const projects = [
+      {
+        id: 1, category: 'decks',
+        title: 'Rotted Deck + Subfloor Rescue',
+        subtitle: "A bouncy deck, a spongy floor — we tore it down to the joists and rebuilt the deck, door, bathroom, and bay window.",
+        description: "Got called over to take a look at a deck that bounced like a trampoline and a spongy feeling floor as you walk inside. We noticed the deck joists and the subfloor were rotted. Inside, the only thing keeping it from falling to the basement was the laminate flooring. As soon as we removed the flooring the subfloor was soft enough we could push a #2 pencil through it. The old door had been rotten for years and had been letting any and all weather through to the wood below.\n\n• Cut and replaced the subfloor\n• Bathroom had leaking valves — while we had everything apart for the flooring replacement, we re-plumbed the area while the home owner painted and the old bathroom got a face lift\n• Cut out the door\n• Added flashing and insulation since there was never any to begin with\n• Replaced with a steel French door\n• Added PVC trim to help future-proof and sealed around the edges\n• Finished the floor with our supply of LVP and trimmed it up\n• Tore out the deck and found the bay window had rotted as well — tore it off and replaced\n\nGot it all trimmed out with a full picture-frame finish on the deck surface. All white trim with lattice to keep pets and small animals out from under. All aluminum rails. You can see the new French door we installed with the new hardware to top it all off.",
+        buildCase: 'build',
+        photos: {
+          before: ['685787807_122165577494924370_5474056849526982502_n.jpg','685830417_122165577710924370_8641923412793274927_n.jpg','685918692_122165577632924370_1209444648083621931_n.jpg','685985905_122165577506924370_648188575394041564_n.jpg','686901062_122165577692924370_3188362834070554063_n.jpg','688155316_122165577596924370_958146317056487480_n.jpg'],
+          build:  ['685920436_122165577518924370_3021859927935134748_n.jpg','685941200_122165577620924370_8487855572187613227_n.jpg','685985905_122165577506924370_648188575394041564_n.jpg','686901062_122165577692924370_3188362834070554063_n (1).jpg','688790975_122165577764924370_6601488350049554302_n.jpg'],
+          after:  ['688206120_122165577752924370_567413554706433497_n.jpg','688426746_122165577542924370_7653914109910467572_n.jpg','696926801_122166785738924370_3189191641572669298_n.jpg','697379114_122166785660924370_3716078342979916104_n.jpg','697792527_122166785714924370_3649039389392150995_n.jpg']
+        }
+      },
+      {
+        id: 2, category: 'carpentry',
+        title: 'Custom Oak Staircase Rebuild',
+        subtitle: 'Tripping hazards out, new oak treads, metal balusters, custom newel.',
+        description: "We had a request to tear out the carpet and trim from a seemingly unsafe staircase. The previous owners had a 1\"×8\" tripping hazard at the top of the stairs along with a very wobbly stair rail. We tore it all out and started from scratch with new oak treads and risers. New thicker stair newel and rails and metal balusters to match.\n\nThere were special-order parts we had to make work — but we enjoyed the challenge of lining everything up and making it smooth. There's a lot of pictures, but it's quite a process. We even had to take out the entire entryway flooring and trim just to be able to make the floor re-line up where the old tripping hazard was, since there was no floor under.",
+        buildCase: 'build',
+        photos: {
+          before: ['679918447_122164643672924370_934774712104554671_n.jpg','680764558_122164643600924370_5721333323244731529_n.jpg'],
+          build:  ['678783656_122164643798924370_4681891461833713430_n.jpg','679087967_122164644122924370_4413253027523259939_n.jpg','679252146_122164644068924370_4134847671425500214_n.jpg','679372445_122164643810924370_1972177308204808522_n.jpg','679437996_122164643876924370_2826909908833122000_n.jpg','679443985_122164643714924370_7950409843719153160_n.jpg','679475480_122164643732924370_503826273105954858_n.jpg','679502793_122164643684924370_1657031729991208996_n.jpg','679831915_122164644224924370_115708568597065042_n.jpg','680467213_122164643864924370_468501252227955554_n.jpg','680655848_122164643978924370_9180037722551737229_n.jpg','680764542_122164644104924370_1384632901032150156_n.jpg','681102825_122164643762924370_3599319518738082506_n.jpg','681186741_122164643612924370_8360056145008808425_n.jpg'],
+          after:  ['679627485_122164643624924370_457444704431346264_n.jpg','679761470_122164643636924370_5980302176674596817_n.jpg','679794627_122164644242924370_6551555723534882550_n.jpg','681587518_122164643966924370_9144663237879290167_n.jpg']
+        }
+      },
+      {
+        id: 3, category: 'carpentry',
+        title: 'Stone Mantel + Hidden Wiring',
+        subtitle: 'Hidden HDMI, coax, and Ethernet behind cement board — hand-built mantel for the soundbar.',
+        description: "Few weeks back we pulled out an old fireplace. Removed the drywall and added built-in coax, power cables, and Ethernet cables behind the now cement board so that we could get a wireless look compared to wires hanging everywhere and visible.\n\nWe started by fishing wires below and through the existing walls and managed to not have to open or disrupt any unnecessary drywall. Then we had a special-order stone shipped in and hand-built this mantel so that it could hold up against the larger surround sound bar.\n\nWe were able to line everything up and make it seamless — now tearing out the stairs and re-doing the rails so that it all matches within the house.",
+        buildCase: 'build',
+        photos: {
+          before: ['672683881_122163017366924370_98956491233576241_n.jpg'],
+          build:  ['670639381_122163017276924370_8843782760761537597_n.jpg'],
+          after:  ['671228370_122163017306924370_8103178374297390152_n.jpg','672687605_122163017234924370_6910462464649648848_n.jpg']
+        }
+      },
+      {
+        id: 4, category: 'baths',
+        title: 'Full Bathroom Gut + Re-Vent',
+        subtitle: 'Gutted, re-framed, re-routed, re-vented — every system replaced.',
+        description: "Before, after, and during photos of the latest bathroom.\n\n• Gutted the bathroom, removed old soffits that took up a lot of space\n• Added insulation\n• Re-framed the wall to match the current wall\n• Cut open roof for a proper vent — the old exhaust vent was just dumping moisture into the attic\n• Re-routed the wiring from the soffits\n• Cut out the old plumbing, installed new plumbing with shut-off valves directly under\n• Made custom niches for the recessed medicine cabinet and shower\n• All new drywall, finishing, and painting\n• Waterproofed the shower and niche, then tiled\n• Cement boarding for the floor with new tile\n\nIt's been a heck of a process, but it came together nicely.",
+        buildCase: 'Build',
+        photos: {
+          before: ['668977497_122162739698924370_1606398021676052412_n.jpg','669215273_122162739560924370_792457570624692163_n.jpg','671321756_122162739650924370_3315620044422330474_n.jpg'],
+          build:  ['668558318_122162739614924370_264940656886280227_n.jpg','668824589_122162739632924370_6947906691521507150_n.jpg','669582873_122162739602924370_5637705758450950104_n.jpg','669604166_122162739734924370_3935829674042934475_n.jpg','669604566_122162739668924370_6286851113214167611_n.jpg','669821224_122162739716924370_3855783469857407184_n.jpg','670293289_122162739542924370_7632355292877288710_n.jpg'],
+          after:  ['669001873_122162739578924370_2318869469622293971_n.jpg']
+        }
+      },
+      {
+        id: 5, category: 'decks',
+        title: 'Composite Deck Replacement',
+        subtitle: 'A rotting wood deck swapped for composite — no rot, no splinters, no maintenance, extended footprint.',
+        description: "Before and after of the rotting deck that moved with every step. We were able to extend it for more space. With composite there is no rot, no staining, no sanding, no splinters, and no maintenance. We are so happy with how this turned out.",
+        buildCase: 'Build',
+        photos: {
+          before: ['557740904_122137304984924370_3382801888515930346_n.jpg','564181202_122137304954924370_8776203843321787062_n.jpg','564581698_122137301048924370_2434635111815601508_n.jpg','565132137_122137304930924370_1537539360496646284_n.jpg','565669212_122137301342924370_2599340834271478036_n.jpg','565851448_122137304972924370_8820745800638855219_n.jpg'],
+          build:  ['565337261_122137301234924370_4974536320309258964_n.jpg'],
+          after:  ['561684888_122137301072924370_7912459491938923285_n.jpg','562347151_122137301324924370_8113617693266072439_n.jpg','565273555_122137301240924370_4817137751538062839_n.jpg','565273748_122137301354924370_7772185493294138425_n.jpg','565701663_122137304996924370_5213107766208447293_n.jpg','568647104_122137304942924370_5322738099598557680_n.jpg']
+        }
+      },
+      {
+        id: 6, category: 'kitchens',
+        title: 'Butcher Block + Open Layout',
+        subtitle: 'Non-load-bearing wall down, custom hevea butcher block, weather oak finish, open living space.',
+        description: "This is a counter-top replacement project from last week. We took down a non-load-bearing wall, moved the electrical, mending together and cut a custom-to-the-house butcher block made from hevea and finished it in a weather oak finish.\n\nWe added extra width and length so it would go over the wall that was taken down, give a little extra leg room, and extended it to wrap around the wall.\n\nIt opened up the whole living space and gave a fresh new look.",
+        buildCase: 'Build',
+        photos: {
+          before: ['514412252_122131751450924370_2824529492642052135_n.jpg','549540156_122131751396924370_7214096245302056112_n.jpg'],
+          build:  ['549367453_122131751900924370_2338722653025160536_n.jpg','550334713_122131751816924370_7274098795784632686_n.jpg'],
+          after:  ['548625364_122131751372924370_620593498184892100_n.jpg','549635696_122131751660924370_2994466807403470766_n.jpg']
+        }
+      }
+    ];
+
+    const categoryLabels = {
+      decks: 'Decks &amp; Outdoor',
+      kitchens: 'Kitchens',
+      baths: 'Bathrooms',
+      carpentry: 'Carpentry &amp; Built-ins'
+    };
+
+    const stageLabels = { before: 'Before', build: 'During the build', after: 'After' };
+
+    function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+    function imgPath(projectId, stage, file, buildCase) {
+      // stage in URL: build folder may be 'build' or 'Build' depending on project
+      const stageFolder = stage === 'build' ? buildCase : (stage[0].toUpperCase() + stage.slice(1));
+      const folder = `Project ${projectId} (${stageFolder})`;
+      return `Images/${encodeURIComponent(folder)}/${encodeURIComponent(file)}`;
+    }
+
+    function renderPhotoGrid(project, stage) {
+      const files = project.photos[stage];
+      if (!files || files.length === 0) return '';
+      const items = files.map((f, idx) => {
+        const src = imgPath(project.id, stage, f, project.buildCase);
+        const cap = `${esc(project.title)} — ${stageLabels[stage]} (${idx + 1}/${files.length})`;
+        return `<div class="gallery-card group relative overflow-hidden rounded-md aspect-[4/3] cursor-pointer bg-stone-200" data-img="${src}" data-title="${cap}">
+          <img class="gallery-img absolute inset-0 w-full h-full object-cover" loading="lazy" src="${src}" alt="${cap}" />
+          <div class="absolute inset-0 bg-ink-900/0 group-hover:bg-ink-900/20 transition"></div>
+        </div>`;
+      }).join('');
+      return `<div class="mt-8">
+        <div class="stage-label mb-4">${stageLabels[stage]} — ${files.length} photo${files.length === 1 ? '' : 's'}</div>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">${items}</div>
+      </div>`;
+    }
+
+    function renderProject(p) {
+      const descHtml = esc(p.description).split('\n').map(line => {
+        if (line.trim().startsWith('• ')) return null; // grouped below
+        return `<p>${line || '&nbsp;'}</p>`;
+      }).filter(Boolean);
+      // Group bullets into a list
+      const lines = p.description.split('\n');
+      let html = '<div class="prose-block space-y-4 text-stone-700 text-base leading-relaxed">';
+      let bullets = [];
+      function flush() {
+        if (bullets.length) {
+          html += '<ul class="space-y-2 pl-0 list-none">' + bullets.map(b => `<li class="flex gap-3"><span class="text-salmon-500 mt-1.5 flex-shrink-0">▸</span><span>${esc(b.replace(/^•\s*/, ''))}</span></li>`).join('') + '</ul>';
+          bullets = [];
+        }
+      }
+      lines.forEach(line => {
+        if (line.trim().startsWith('• ')) {
+          bullets.push(line.trim());
+        } else if (line.trim() === '') {
+          flush();
+        } else {
+          flush();
+          html += `<p>${esc(line)}</p>`;
+        }
+      });
+      flush();
+      html += '</div>';
+
+      return `<article id="project-${p.id}" class="project-section py-12 sm:py-16 border-b border-stone-200 last:border-b-0" data-cat="${p.category}">
+        <div class="max-w-7xl mx-auto px-6">
+          <div class="grid lg:grid-cols-3 gap-10">
+            <header class="lg:col-span-1">
+              <div class="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.25em] text-salmon-600 mb-3 font-semibold">
+                <span class="w-6 h-px bg-salmon-600"></span>
+                ${categoryLabels[p.category]} · Project ${p.id}
+              </div>
+              <h2 class="font-display font-bold text-3xl sm:text-4xl tracking-tight leading-tight">${esc(p.title)}</h2>
+              <p class="mt-4 text-lg text-stone-600 leading-snug">${esc(p.subtitle)}</p>
+            </header>
+            <div class="lg:col-span-2">${html}</div>
+          </div>
+          ${renderPhotoGrid(p, 'before')}
+          ${renderPhotoGrid(p, 'build')}
+          ${renderPhotoGrid(p, 'after')}
+        </div>
+      </article>`;
+    }
+
+    // Render all projects
+    const root = document.getElementById('projects-root');
+    root.innerHTML = projects.map(renderProject).join('');
+
+    // ---------- Filter ----------
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const sections = document.querySelectorAll('.project-section');
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const f = btn.dataset.filter;
+        sections.forEach(s => {
+          if (f === 'all' || s.dataset.cat === f) s.classList.remove('hidden-item');
+          else s.classList.add('hidden-item');
+        });
+      });
+    });
+
+    // ---------- Mobile menu ----------
     const mb = document.getElementById('mobile-menu-btn');
     const mm = document.getElementById('mobile-menu');
     const mc = document.getElementById('mobile-menu-close');
@@ -346,27 +381,12 @@
     mc.addEventListener('click', closeMobile);
     mm.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMobile));
 
-    // Filter
-    const buttons = document.querySelectorAll('.filter-btn');
-    const items = document.querySelectorAll('.gallery-item');
-    buttons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        buttons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const f = btn.dataset.filter;
-        items.forEach(it => {
-          if (f === 'all' || it.dataset.cat === f) it.classList.remove('hidden-item');
-          else it.classList.add('hidden-item');
-        });
-      });
-    });
-
-    // Lightbox
+    // ---------- Lightbox ----------
     const lb = document.getElementById('lightbox');
     const lbImg = document.getElementById('lb-img');
     const lbCap = document.getElementById('lb-caption');
     const lbClose = document.getElementById('lb-close');
-    items.forEach(it => {
+    document.querySelectorAll('.gallery-card').forEach(it => {
       it.addEventListener('click', () => {
         lbImg.src = it.dataset.img;
         lbImg.alt = it.dataset.title;

@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Howe Home Improvement — Built right. Built to last.</title>
-  <meta name="description" content="Howe Home Improvement specializes in kitchens, baths, decks, additions, and full-home renovations. Quality craftsmanship you can trust." />
+  <title>Howe Renovations — Make your house a home.</title>
+  <meta name="description" content="Howe Renovations builds decks, kitchens, baths, and the carpentry that holds it all together — across Central New Hampshire. Honest quotes, clean job sites, work we put our name on." />
+  <link rel="icon" type="image/png" href="brand/howe-logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Fraunces:opsz,wght@9..144,500;9..144,700&display=swap" rel="stylesheet" />
@@ -18,16 +19,9 @@
             display: ['Fraunces', 'Georgia', 'serif'],
           },
           colors: {
-            ink: {
-              900: '#0b1220',
-              800: '#101a2e',
-              700: '#1a2540',
-            },
-            ember: {
-              400: '#fbbf24',
-              500: '#f59e0b',
-              600: '#d97706',
-            },
+            ink: { 900: '#0b1220', 800: '#101a2e', 700: '#1a2540' },
+            /* Salmon/coral tones pulled from Mike's logo */
+            salmon: { 300: '#FBD7B2', 400: '#F9C787', 500: '#EE9F5C', 600: '#D67A3D', 700: '#B85F2C' },
           },
         },
       },
@@ -37,8 +31,8 @@
     html { scroll-behavior: smooth; }
     .hero-overlay {
       background:
-        linear-gradient(180deg, rgba(11,18,32,0.85) 0%, rgba(11,18,32,0.78) 50%, rgba(11,18,32,0.95) 100%),
-        url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=2400&q=80');
+        linear-gradient(180deg, rgba(11,18,32,0.82) 0%, rgba(11,18,32,0.65) 45%, rgba(11,18,32,0.92) 100%),
+        url('Images/Project%205%20(After)/561684888_122137301072924370_7912459491938923285_n.jpg');
       background-size: cover;
       background-position: center;
     }
@@ -46,25 +40,55 @@
       background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
       background-size: 3px 3px;
     }
-    .card-img {
-      transition: transform 600ms cubic-bezier(.2,.7,.2,1);
-    }
+    .card-img { transition: transform 600ms cubic-bezier(.2,.7,.2,1); }
     .card:hover .card-img { transform: scale(1.06); }
     .nav-link { position: relative; }
     .nav-link::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: -6px;
-      height: 2px;
-      width: 0;
-      background: #f59e0b;
-      transition: width 250ms ease;
+      content: ''; position: absolute; left: 0; bottom: -6px;
+      height: 2px; width: 0; background: #EE9F5C; transition: width 250ms ease;
     }
     .nav-link:hover::after { width: 100%; }
     .mobile-menu { display: none; }
     .mobile-menu.open { display: flex; }
     body { overflow-x: hidden; }
+
+    /* Carousel */
+    #carousel { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: #000; }
+    @media (min-width: 1024px) { #carousel { aspect-ratio: 21 / 9; } }
+    .slide {
+      position: absolute; inset: 0;
+      opacity: 0; transition: opacity 800ms ease-in-out;
+      pointer-events: none;
+    }
+    .slide.active { opacity: 1; pointer-events: auto; }
+    .slide img { width: 100%; height: 100%; object-fit: cover; }
+    .slide .caption {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 32px;
+      background: linear-gradient(180deg, rgba(11,18,32,0) 0%, rgba(11,18,32,0.85) 100%);
+      color: white;
+    }
+    .carousel-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 48px; height: 48px; border-radius: 9999px;
+      background: rgba(11,18,32,0.55); color: white;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; backdrop-filter: blur(6px);
+      transition: background 200ms ease;
+    }
+    .carousel-btn:hover { background: rgba(238,159,92,0.85); }
+    .carousel-btn.prev { left: 16px; }
+    .carousel-btn.next { right: 16px; }
+    .dots {
+      position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
+      display: flex; gap: 8px; z-index: 5;
+    }
+    .dot {
+      width: 8px; height: 8px; border-radius: 9999px;
+      background: rgba(255,255,255,0.5); cursor: pointer;
+      transition: all 250ms ease;
+    }
+    .dot.active { background: #EE9F5C; width: 24px; }
   </style>
 </head>
 <body class="bg-stone-50 text-ink-900 font-sans antialiased">
@@ -73,10 +97,10 @@
   <header class="absolute top-0 left-0 right-0 z-50">
     <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
       <a href="/" class="flex items-center gap-3 text-white">
-        <div class="w-10 h-10 rounded-md bg-ember-500 flex items-center justify-center font-display font-bold text-ink-900 text-lg">H</div>
+        <img src="brand/howe-logo.png" alt="Howe Renovations logo" class="h-12 w-auto" />
         <div class="leading-tight">
-          <div class="font-display font-bold text-xl tracking-tight">Howe</div>
-          <div class="text-[10px] uppercase tracking-[0.2em] text-stone-300">Home Improvement</div>
+          <div class="font-display font-bold text-xl tracking-[0.18em] uppercase">Howe</div>
+          <div class="text-[10px] uppercase tracking-[0.25em] text-stone-300 -mt-0.5">Renovations</div>
         </div>
       </a>
       <nav class="hidden md:flex items-center gap-10 text-sm font-medium text-stone-100">
@@ -85,9 +109,9 @@
         <a href="#about" class="nav-link">About</a>
         <a href="#contact" class="nav-link">Contact</a>
       </nav>
-      <a href="tel:+15555550100" class="hidden md:inline-flex items-center gap-2 bg-ember-500 hover:bg-ember-400 text-ink-900 font-semibold px-5 py-2.5 rounded-md transition">
+      <a href="tel:+16366972408" class="hidden md:inline-flex items-center gap-2 bg-salmon-500 hover:bg-salmon-400 text-ink-900 font-semibold px-5 py-2.5 rounded-md transition">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 0 1 2-2h2.28a2 2 0 0 1 1.94 1.515l.7 2.8a2 2 0 0 1-.45 1.95l-1.27 1.27a16 16 0 0 0 6.586 6.586l1.27-1.27a2 2 0 0 1 1.95-.45l2.8.7A2 2 0 0 1 21 18.72V21a2 2 0 0 1-2 2h-1C9.716 23 1 14.284 1 4V3z"/></svg>
-        (555) 555-0100
+        636-697-2408
       </a>
       <button id="mobile-menu-btn" class="md:hidden w-11 h-11 flex items-center justify-center text-white" aria-label="Open menu">
         <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
@@ -98,11 +122,11 @@
   <!-- Mobile menu overlay -->
   <div id="mobile-menu" class="mobile-menu md:hidden fixed inset-0 z-[60] bg-ink-900 flex-col">
     <div class="flex items-center justify-between px-6 py-5 border-b border-white/10">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-md bg-ember-500 flex items-center justify-center font-display font-bold text-ink-900 text-lg">H</div>
-        <div class="leading-tight text-white">
-          <div class="font-display font-bold text-xl tracking-tight">Howe</div>
-          <div class="text-[10px] uppercase tracking-[0.2em] text-stone-300">Home Improvement</div>
+      <div class="flex items-center gap-3 text-white">
+        <img src="brand/howe-logo.png" alt="Howe Renovations logo" class="h-10 w-auto" />
+        <div class="leading-tight">
+          <div class="font-display font-bold text-xl tracking-[0.18em] uppercase">Howe</div>
+          <div class="text-[10px] uppercase tracking-[0.25em] text-stone-300 -mt-0.5">Renovations</div>
         </div>
       </div>
       <button id="mobile-menu-close" class="w-11 h-11 flex items-center justify-center text-white" aria-label="Close menu">
@@ -116,9 +140,9 @@
       <a href="#contact" class="py-4 text-2xl font-display font-bold border-b border-white/10">Contact</a>
     </nav>
     <div class="mt-auto p-6">
-      <a href="tel:+15555550100" class="flex items-center justify-center gap-2 bg-ember-500 hover:bg-ember-400 text-ink-900 font-semibold px-5 py-4 rounded-md transition w-full text-lg">
+      <a href="tel:+16366972408" class="flex items-center justify-center gap-2 bg-salmon-500 hover:bg-salmon-400 text-ink-900 font-semibold px-5 py-4 rounded-md transition w-full text-lg">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 0 1 2-2h2.28a2 2 0 0 1 1.94 1.515l.7 2.8a2 2 0 0 1-.45 1.95l-1.27 1.27a16 16 0 0 0 6.586 6.586l1.27-1.27a2 2 0 0 1 1.95-.45l2.8.7A2 2 0 0 1 21 18.72V21a2 2 0 0 1-2 2h-1C9.716 23 1 14.284 1 4V3z"/></svg>
-        (555) 555-0100
+        636-697-2408
       </a>
     </div>
   </div>
@@ -128,39 +152,25 @@
     <div class="absolute inset-0 grain pointer-events-none"></div>
     <div class="max-w-7xl mx-auto px-6 pt-32 pb-20 relative">
       <div class="max-w-3xl">
-        <div class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-ember-400 mb-6">
-          <span class="w-8 h-px bg-ember-400"></span>
-          Family-owned since 2009
+        <div class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-salmon-400 mb-6">
+          <span class="w-8 h-px bg-salmon-400"></span>
+          Central New Hampshire
         </div>
         <h1 class="font-display font-bold text-5xl sm:text-7xl lg:text-8xl leading-[0.95] tracking-tight">
-          Built right.<br/>
-          <span class="text-ember-400">Built to last.</span>
+          Make your house<br/>
+          <span class="text-salmon-400">a home.</span>
         </h1>
         <p class="mt-6 sm:mt-8 text-base sm:text-xl text-stone-200 max-w-xl leading-relaxed">
-          Kitchens, baths, decks, additions, and full-home renovations across the region. Honest quotes. Clean job sites. Work we'd put our name on — because we do.
+          Decks, kitchens, baths, and the carpentry that holds it all together — done right the first time. Honest quotes. Clean job sites. Work we put our name on.
         </p>
         <div class="mt-10 flex flex-col sm:flex-row gap-4">
-          <a href="#contact" class="inline-flex items-center justify-center gap-2 bg-ember-500 hover:bg-ember-400 text-ink-900 font-semibold px-7 py-4 rounded-md transition">
+          <a href="#contact" class="inline-flex items-center justify-center gap-2 bg-salmon-500 hover:bg-salmon-400 text-ink-900 font-semibold px-7 py-4 rounded-md transition">
             Get a free estimate
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
           </a>
           <a href="gallery.html" class="inline-flex items-center justify-center gap-2 border border-white/30 hover:bg-white/10 text-white font-semibold px-7 py-4 rounded-md transition">
-            View our work
+            See the work
           </a>
-        </div>
-        <div class="mt-12 sm:mt-16 grid grid-cols-3 gap-4 sm:gap-8 max-w-lg">
-          <div>
-            <div class="font-display font-bold text-3xl sm:text-4xl text-ember-400">15+</div>
-            <div class="text-[10px] sm:text-xs uppercase tracking-wider text-stone-300 mt-1">Years</div>
-          </div>
-          <div>
-            <div class="font-display font-bold text-3xl sm:text-4xl text-ember-400">300+</div>
-            <div class="text-[10px] sm:text-xs uppercase tracking-wider text-stone-300 mt-1">Projects</div>
-          </div>
-          <div>
-            <div class="font-display font-bold text-3xl sm:text-4xl text-ember-400">5.0</div>
-            <div class="text-[10px] sm:text-xs uppercase tracking-wider text-stone-300 mt-1">Google rating</div>
-          </div>
         </div>
       </div>
     </div>
@@ -169,57 +179,135 @@
     </div>
   </section>
 
+  <!-- Recent transformations carousel -->
+  <section class="bg-ink-900 text-white relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 pt-20 pb-8">
+      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-10">
+        <div class="max-w-2xl">
+          <div class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-salmon-400 mb-4">
+            <span class="w-8 h-px bg-salmon-400"></span>
+            Recent transformations
+          </div>
+          <h2 class="font-display font-bold text-4xl sm:text-5xl tracking-tight">Real jobs. Real outcomes.</h2>
+          <p class="mt-4 text-stone-300">No stock photos — every shot below is from a recent Howe Renovations project.</p>
+        </div>
+        <a href="gallery.html" class="inline-flex items-center gap-2 text-salmon-400 hover:text-salmon-300 font-semibold whitespace-nowrap">
+          See the full gallery
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 pb-20">
+      <div id="carousel" class="rounded-lg shadow-2xl">
+        <!-- Slides -->
+        <div class="slide active" data-caption="Composite deck — second-story rebuild">
+          <img src="Images/Project%205%20(After)/561684888_122137301072924370_7912459491938923285_n.jpg" alt="Second-story composite deck after rebuild" />
+          <div class="caption"><div class="text-xs uppercase tracking-[0.25em] text-salmon-400 mb-1">Decks · Project 5</div><div class="font-display text-2xl">Composite deck — second-story rebuild</div></div>
+        </div>
+        <div class="slide" data-caption="Picture-frame composite deck + lattice">
+          <img src="Images/Project%201%20(After)/697379114_122166785660924370_3716078342979916104_n.jpg" alt="Picture-frame composite deck" />
+          <div class="caption"><div class="text-xs uppercase tracking-[0.25em] text-salmon-400 mb-1">Decks · Project 1</div><div class="font-display text-2xl">Picture-frame finish with aluminum rails</div></div>
+        </div>
+        <div class="slide" data-caption="Butcher-block + opened-up kitchen">
+          <img src="Images/Project%206%20(After)/548625364_122131751372924370_620593498184892100_n.jpg" alt="Butcher block kitchen with wall removed" />
+          <div class="caption"><div class="text-xs uppercase tracking-[0.25em] text-salmon-400 mb-1">Kitchens · Project 6</div><div class="font-display text-2xl">Butcher-block counter + opened-up living space</div></div>
+        </div>
+        <div class="slide" data-caption="Custom oak staircase rebuild">
+          <img src="Images/Project%202%20(After)/679761470_122164643636924370_5980302176674596817_n.jpg" alt="Oak staircase with metal balusters" />
+          <div class="caption"><div class="text-xs uppercase tracking-[0.25em] text-salmon-400 mb-1">Carpentry · Project 2</div><div class="font-display text-2xl">Custom oak staircase with metal balusters</div></div>
+        </div>
+        <div class="slide" data-caption="Stone fireplace + custom mantel">
+          <img src="Images/Project%203%20(After)/671228370_122163017306924370_8103178374297390152_n.jpg" alt="Stone fireplace with custom mantel" />
+          <div class="caption"><div class="text-xs uppercase tracking-[0.25em] text-salmon-400 mb-1">Carpentry · Project 3</div><div class="font-display text-2xl">Stone mantel with hidden wiring</div></div>
+        </div>
+        <div class="slide" data-caption="Full bathroom gut renovation">
+          <img src="Images/Project%204%20(After)/669001873_122162739578924370_2318869469622293971_n.jpg" alt="Bathroom after full gut renovation" />
+          <div class="caption"><div class="text-xs uppercase tracking-[0.25em] text-salmon-400 mb-1">Bathrooms · Project 4</div><div class="font-display text-2xl">Full bathroom gut + custom tile niches</div></div>
+        </div>
+        <div class="slide" data-caption="Composite deck — different angle">
+          <img src="Images/Project%205%20(After)/562347151_122137301324924370_8113617693266072439_n.jpg" alt="Composite deck angle 2" />
+          <div class="caption"><div class="text-xs uppercase tracking-[0.25em] text-salmon-400 mb-1">Decks · Project 5</div><div class="font-display text-2xl">Composite — no rot, no splinters, no maintenance</div></div>
+        </div>
+        <div class="slide" data-caption="Deck plus new French door">
+          <img src="Images/Project%201%20(After)/688206120_122165577752924370_567413554706433497_n.jpg" alt="Deck with new French door" />
+          <div class="caption"><div class="text-xs uppercase tracking-[0.25em] text-salmon-400 mb-1">Decks · Project 1</div><div class="font-display text-2xl">Steel French door + flashing + PVC trim</div></div>
+        </div>
+        <div class="slide" data-caption="Butcher-block angle 2">
+          <img src="Images/Project%206%20(After)/549635696_122131751660924370_2994466807403470766_n.jpg" alt="Butcher block kitchen angle 2" />
+          <div class="caption"><div class="text-xs uppercase tracking-[0.25em] text-salmon-400 mb-1">Kitchens · Project 6</div><div class="font-display text-2xl">Hevea butcher block — weathered oak finish</div></div>
+        </div>
+        <div class="slide" data-caption="Custom stair newel + rails">
+          <img src="Images/Project%202%20(After)/679627485_122164643624924370_457444704431346264_n.jpg" alt="Custom newel and rails on oak staircase" />
+          <div class="caption"><div class="text-xs uppercase tracking-[0.25em] text-salmon-400 mb-1">Carpentry · Project 2</div><div class="font-display text-2xl">Thicker newel + rails to match</div></div>
+        </div>
+        <div class="slide" data-caption="Mantel detail">
+          <img src="Images/Project%203%20(After)/672687605_122163017234924370_6910462464649648848_n.jpg" alt="Mantel finish detail" />
+          <div class="caption"><div class="text-xs uppercase tracking-[0.25em] text-salmon-400 mb-1">Carpentry · Project 3</div><div class="font-display text-2xl">Hand-built mantel — built to hold the soundbar</div></div>
+        </div>
+        <div class="slide" data-caption="Composite deck — third angle">
+          <img src="Images/Project%205%20(After)/565273748_122137301354924370_7772185493294138425_n.jpg" alt="Composite deck angle 3" />
+          <div class="caption"><div class="text-xs uppercase tracking-[0.25em] text-salmon-400 mb-1">Decks · Project 5</div><div class="font-display text-2xl">Extended footprint, more usable space</div></div>
+        </div>
+
+        <button class="carousel-btn prev" id="carousel-prev" aria-label="Previous slide">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        <button class="carousel-btn next" id="carousel-next" aria-label="Next slide">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </button>
+        <div class="dots" id="carousel-dots"></div>
+      </div>
+    </div>
+  </section>
+
   <!-- Services -->
   <section id="services" class="py-24 sm:py-32 bg-stone-50">
     <div class="max-w-7xl mx-auto px-6">
       <div class="max-w-2xl mb-16">
-        <div class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-ember-600 mb-4">
-          <span class="w-8 h-px bg-ember-600"></span>
+        <div class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-salmon-600 mb-4">
+          <span class="w-8 h-px bg-salmon-600"></span>
           What we do
         </div>
-        <h2 class="font-display font-bold text-4xl sm:text-5xl tracking-tight">Whole-home craft, one project at a time.</h2>
-        <p class="mt-5 text-lg text-stone-600">From a kitchen refresh to a full second-story addition — we take on the work most contractors won't, and finish what we start.</p>
+        <h2 class="font-display font-bold text-4xl sm:text-5xl tracking-tight">Decks, kitchens, baths — and the carpentry behind it all.</h2>
+        <p class="mt-5 text-lg text-stone-600">We take on the work most contractors won't — rotted subfloors, custom mantels, stair rebuilds — and finish what we start.</p>
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <!-- Kitchens -->
-        <div class="card group bg-white rounded-lg overflow-hidden border border-stone-200 hover:border-ember-500 transition">
+        <div class="card group bg-white rounded-lg overflow-hidden border border-stone-200 hover:border-salmon-500 transition">
           <div class="aspect-[4/3] overflow-hidden">
-            <img class="card-img w-full h-full object-cover" src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=900&q=80" alt="Modern kitchen renovation" />
-          </div>
-          <div class="p-6">
-            <h3 class="font-display font-bold text-xl">Kitchens</h3>
-            <p class="mt-2 text-sm text-stone-600">Full remodels, cabinetry, islands, custom tile, lighting.</p>
-          </div>
-        </div>
-        <!-- Baths -->
-        <div class="card group bg-white rounded-lg overflow-hidden border border-stone-200 hover:border-ember-500 transition">
-          <div class="aspect-[4/3] overflow-hidden">
-            <img class="card-img w-full h-full object-cover" src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=900&q=80" alt="Bathroom renovation" />
-          </div>
-          <div class="p-6">
-            <h3 class="font-display font-bold text-xl">Bathrooms</h3>
-            <p class="mt-2 text-sm text-stone-600">Walk-in showers, soaking tubs, vanities, heated floors.</p>
-          </div>
-        </div>
-        <!-- Decks & outdoor -->
-        <div class="card group bg-white rounded-lg overflow-hidden border border-stone-200 hover:border-ember-500 transition">
-          <div class="aspect-[4/3] overflow-hidden">
-            <img class="card-img w-full h-full object-cover" src="https://images.unsplash.com/photo-1591389703635-e15a07b842d7?auto=format&fit=crop&w=900&q=80" alt="Custom deck and outdoor living" />
+            <img class="card-img w-full h-full object-cover" src="Images/Project%205%20(After)/561684888_122137301072924370_7912459491938923285_n.jpg" alt="Composite deck" />
           </div>
           <div class="p-6">
             <h3 class="font-display font-bold text-xl">Decks &amp; Outdoor</h3>
-            <p class="mt-2 text-sm text-stone-600">Composite decks, pergolas, screened porches, hardscape.</p>
+            <p class="mt-2 text-sm text-stone-600">Composite decks, structural rebuilds, picture-frame finishes, aluminum rails, lattice.</p>
           </div>
         </div>
-        <!-- Additions -->
-        <div class="card group bg-white rounded-lg overflow-hidden border border-stone-200 hover:border-ember-500 transition">
+        <div class="card group bg-white rounded-lg overflow-hidden border border-stone-200 hover:border-salmon-500 transition">
           <div class="aspect-[4/3] overflow-hidden">
-            <img class="card-img w-full h-full object-cover" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=80" alt="Home addition" />
+            <img class="card-img w-full h-full object-cover" src="Images/Project%206%20(After)/548625364_122131751372924370_620593498184892100_n.jpg" alt="Open kitchen" />
           </div>
           <div class="p-6">
-            <h3 class="font-display font-bold text-xl">Additions</h3>
-            <p class="mt-2 text-sm text-stone-600">Second-story builds, in-law suites, garage conversions.</p>
+            <h3 class="font-display font-bold text-xl">Kitchens</h3>
+            <p class="mt-2 text-sm text-stone-600">Open-up walls, custom butcher block, cabinetry refresh, electrical rework.</p>
+          </div>
+        </div>
+        <div class="card group bg-white rounded-lg overflow-hidden border border-stone-200 hover:border-salmon-500 transition">
+          <div class="aspect-[4/3] overflow-hidden">
+            <img class="card-img w-full h-full object-cover" src="Images/Project%204%20(After)/669001873_122162739578924370_2318869469622293971_n.jpg" alt="Bathroom" />
+          </div>
+          <div class="p-6">
+            <h3 class="font-display font-bold text-xl">Bathrooms</h3>
+            <p class="mt-2 text-sm text-stone-600">Full gut, proper venting, waterproofing, custom tile niches, recessed cabinets.</p>
+          </div>
+        </div>
+        <div class="card group bg-white rounded-lg overflow-hidden border border-stone-200 hover:border-salmon-500 transition">
+          <div class="aspect-[4/3] overflow-hidden">
+            <img class="card-img w-full h-full object-cover" src="Images/Project%202%20(After)/679761470_122164643636924370_5980302176674596817_n.jpg" alt="Oak staircase" />
+          </div>
+          <div class="p-6">
+            <h3 class="font-display font-bold text-xl">Carpentry &amp; Built-ins</h3>
+            <p class="mt-2 text-sm text-stone-600">Custom staircases, stone mantels, hidden wiring, structural rework, finish carpentry.</p>
           </div>
         </div>
       </div>
@@ -232,42 +320,42 @@
     <div class="max-w-7xl mx-auto px-6 relative">
       <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between mb-14 gap-6">
         <div class="max-w-2xl">
-          <div class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-ember-400 mb-4">
-            <span class="w-8 h-px bg-ember-400"></span>
-            Recent work
+          <div class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-salmon-400 mb-4">
+            <span class="w-8 h-px bg-salmon-400"></span>
+            Featured work
           </div>
           <h2 class="font-display font-bold text-4xl sm:text-5xl tracking-tight">Projects we're proud of.</h2>
         </div>
-        <a href="gallery.html" class="inline-flex items-center gap-2 text-ember-400 hover:text-ember-300 font-semibold">
-          See the full gallery
+        <a href="gallery.html" class="inline-flex items-center gap-2 text-salmon-400 hover:text-salmon-300 font-semibold">
+          See all 6 case studies
           <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
         </a>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-        <a href="gallery.html" class="card group block relative aspect-[4/5] overflow-hidden rounded-lg md:col-span-2 md:row-span-2 md:aspect-auto md:h-[600px]">
-          <img class="card-img absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1600&q=80" alt="Featured kitchen project" />
+        <a href="gallery.html#project-5" class="card group block relative aspect-[4/5] overflow-hidden rounded-lg md:col-span-2 md:row-span-2 md:aspect-auto md:h-[600px]">
+          <img class="card-img absolute inset-0 w-full h-full object-cover" src="Images/Project%205%20(After)/561684888_122137301072924370_7912459491938923285_n.jpg" alt="Composite deck rebuild" />
           <div class="absolute inset-0 bg-gradient-to-t from-ink-900 via-ink-900/30 to-transparent"></div>
           <div class="absolute bottom-0 left-0 p-8">
-            <div class="text-xs uppercase tracking-[0.2em] text-ember-400 mb-2">Kitchen</div>
-            <h3 class="font-display font-bold text-3xl">The Maple Street Remodel</h3>
-            <p class="text-stone-300 text-sm mt-2">Full gut renovation · 8 weeks · 2025</p>
+            <div class="text-xs uppercase tracking-[0.2em] text-salmon-400 mb-2">Decks</div>
+            <h3 class="font-display font-bold text-3xl">Composite Deck Rebuild</h3>
+            <p class="text-stone-300 text-sm mt-2">Rotting wood deck swapped for a low-maintenance composite, with more usable square footage.</p>
           </div>
         </a>
-        <a href="gallery.html" class="card group block relative aspect-[4/3] overflow-hidden rounded-lg">
-          <img class="card-img absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=900&q=80" alt="Featured bathroom" />
+        <a href="gallery.html#project-6" class="card group block relative aspect-[4/3] overflow-hidden rounded-lg">
+          <img class="card-img absolute inset-0 w-full h-full object-cover" src="Images/Project%206%20(After)/548625364_122131751372924370_620593498184892100_n.jpg" alt="Butcher block kitchen" />
           <div class="absolute inset-0 bg-gradient-to-t from-ink-900 via-ink-900/20 to-transparent"></div>
           <div class="absolute bottom-0 left-0 p-6">
-            <div class="text-xs uppercase tracking-[0.2em] text-ember-400 mb-1">Bath</div>
-            <h3 class="font-display font-bold text-xl">Hilltop Primary Suite</h3>
+            <div class="text-xs uppercase tracking-[0.2em] text-salmon-400 mb-1">Kitchens</div>
+            <h3 class="font-display font-bold text-xl">Butcher-Block + Wall Removal</h3>
           </div>
         </a>
-        <a href="gallery.html" class="card group block relative aspect-[4/3] overflow-hidden rounded-lg">
-          <img class="card-img absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1605146768851-eda79da39897?auto=format&fit=crop&w=900&q=80" alt="Featured deck" />
+        <a href="gallery.html#project-4" class="card group block relative aspect-[4/3] overflow-hidden rounded-lg">
+          <img class="card-img absolute inset-0 w-full h-full object-cover" src="Images/Project%204%20(After)/669001873_122162739578924370_2318869469622293971_n.jpg" alt="Bathroom renovation" />
           <div class="absolute inset-0 bg-gradient-to-t from-ink-900 via-ink-900/20 to-transparent"></div>
           <div class="absolute bottom-0 left-0 p-6">
-            <div class="text-xs uppercase tracking-[0.2em] text-ember-400 mb-1">Outdoor</div>
-            <h3 class="font-display font-bold text-xl">Cedar Ridge Deck</h3>
+            <div class="text-xs uppercase tracking-[0.2em] text-salmon-400 mb-1">Bathrooms</div>
+            <h3 class="font-display font-bold text-xl">Full Bath Gut + Re-Vent</h3>
           </div>
         </a>
       </div>
@@ -279,47 +367,47 @@
     <div class="max-w-7xl mx-auto px-6">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         <div class="relative">
-          <img class="w-full rounded-lg shadow-xl" src="https://images.unsplash.com/photo-1581094288338-2314dddb7ece?auto=format&fit=crop&w=1200&q=80" alt="Howe team on the job" />
-          <div class="absolute -bottom-8 -right-8 bg-ember-500 text-ink-900 p-8 rounded-lg shadow-xl max-w-xs hidden sm:block">
-            <div class="font-display font-bold text-3xl leading-none">15 yrs.</div>
-            <div class="text-sm font-medium mt-2">of doing the right thing, on every job, every time.</div>
+          <img class="w-full rounded-lg shadow-xl" src="Images/Project%201%20(After)/688206120_122165577752924370_567413554706433497_n.jpg" alt="Finished Howe Renovations deck" />
+          <div class="absolute -bottom-8 -right-8 bg-salmon-500 text-ink-900 p-8 rounded-lg shadow-xl max-w-xs hidden sm:block">
+            <div class="font-display font-bold text-2xl leading-tight">"We build decks<br/>and other stuff."</div>
+            <div class="text-sm font-medium mt-3 text-ink-800">— Mike, on Facebook. Modesty intact.</div>
           </div>
         </div>
         <div>
-          <div class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-ember-600 mb-4">
-            <span class="w-8 h-px bg-ember-600"></span>
+          <div class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-salmon-600 mb-4">
+            <span class="w-8 h-px bg-salmon-600"></span>
             About Howe
           </div>
           <h2 class="font-display font-bold text-4xl sm:text-5xl tracking-tight">A small crew. Big standards.</h2>
           <p class="mt-6 text-lg text-stone-600 leading-relaxed">
-            We're a family-run shop that's been remodeling homes in the region for over fifteen years. Our crew is small on purpose — every project gets one of us on site, every day. We pick up after ourselves. We answer the phone. And we treat your home the way we'd treat our own.
+            We're a small shop in Central New Hampshire. Our crew is small on purpose — every project gets one of us on site, every day. We pick up after ourselves. We answer the phone. And we treat your home the way we'd treat our own.
           </p>
           <ul class="mt-8 space-y-4">
             <li class="flex gap-4">
-              <div class="flex-shrink-0 w-8 h-8 rounded-full bg-ember-500 flex items-center justify-center">
+              <div class="flex-shrink-0 w-8 h-8 rounded-full bg-salmon-500 flex items-center justify-center">
                 <svg class="w-4 h-4 text-ink-900" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
               </div>
               <div>
-                <div class="font-semibold">Licensed, bonded, insured</div>
-                <div class="text-sm text-stone-600">Full coverage on every job. Receipts on request.</div>
+                <div class="font-semibold">We finish what we start</div>
+                <div class="text-sm text-stone-600">Rotted subfloors, rebuilt decks, ripped-out stairs — we own the project end to end, including the surprises.</div>
               </div>
             </li>
             <li class="flex gap-4">
-              <div class="flex-shrink-0 w-8 h-8 rounded-full bg-ember-500 flex items-center justify-center">
+              <div class="flex-shrink-0 w-8 h-8 rounded-full bg-salmon-500 flex items-center justify-center">
                 <svg class="w-4 h-4 text-ink-900" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
               </div>
               <div>
-                <div class="font-semibold">Fixed quotes, not "as we go"</div>
-                <div class="text-sm text-stone-600">You'll know the number before we start swinging hammers.</div>
+                <div class="font-semibold">No-surprise quotes</div>
+                <div class="text-sm text-stone-600">You'll know the number before we start swinging hammers. If we find a problem behind the wall, we tell you first.</div>
               </div>
             </li>
             <li class="flex gap-4">
-              <div class="flex-shrink-0 w-8 h-8 rounded-full bg-ember-500 flex items-center justify-center">
+              <div class="flex-shrink-0 w-8 h-8 rounded-full bg-salmon-500 flex items-center justify-center">
                 <svg class="w-4 h-4 text-ink-900" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
               </div>
               <div>
-                <div class="font-semibold">Two-year workmanship warranty</div>
-                <div class="text-sm text-stone-600">If something we built fails on us, we come back and fix it.</div>
+                <div class="font-semibold">Clean job site, every day</div>
+                <div class="text-sm text-stone-600">You don't have to live in a construction zone. We pack out at the end of every day.</div>
               </div>
             </li>
           </ul>
@@ -328,18 +416,18 @@
     </div>
   </section>
 
-  <!-- Testimonial -->
+  <!-- Testimonial — placeholder until Mike provides real ones -->
   <section class="py-20 bg-white">
     <div class="max-w-4xl mx-auto px-6 text-center">
-      <svg class="w-12 h-12 text-ember-500 mx-auto mb-6" fill="currentColor" viewBox="0 0 24 24"><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/></svg>
+      <svg class="w-12 h-12 text-salmon-500 mx-auto mb-6" fill="currentColor" viewBox="0 0 24 24"><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/></svg>
       <blockquote class="font-display text-2xl sm:text-3xl text-ink-900 leading-snug">
-        "Howe redid our kitchen and downstairs bath in eight weeks. Showed up when they said. Cleaned up every day. We got three quotes — they weren't the cheapest, but you can feel the difference walking through the finished work."
+        "When I tell people Mike rebuilt our deck and our bathroom in the same month, they think I'm exaggerating. He pulled the rotted joists out, put a steel French door in, picture-framed the deck, and our coffee in the morning is on it now."
       </blockquote>
       <div class="mt-8 flex items-center justify-center gap-4">
-        <div class="w-12 h-12 rounded-full bg-stone-300 flex items-center justify-center font-display font-bold text-ink-900">SM</div>
+        <div class="w-12 h-12 rounded-full bg-stone-300 flex items-center justify-center font-display font-bold text-ink-900">—</div>
         <div class="text-left">
-          <div class="font-semibold">Sarah M.</div>
-          <div class="text-sm text-stone-600">Homeowner · Cedar Ridge</div>
+          <div class="font-semibold text-stone-500">Placeholder testimonial</div>
+          <div class="text-sm text-stone-500">Swap with a real one from Mike's clients before launch.</div>
         </div>
       </div>
     </div>
@@ -352,58 +440,61 @@
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <div>
           <h2 class="font-display font-bold text-4xl sm:text-5xl tracking-tight">Ready to start your project?</h2>
-          <p class="mt-5 text-lg text-stone-300">Free, no-pressure estimates. We'll come look at the space, talk through what you want, and send you a fixed quote within a week.</p>
+          <p class="mt-5 text-lg text-stone-300">Free, no-pressure estimates. We'll come look at the space, talk through what you want, and send you a fixed quote.</p>
           <div class="mt-8 space-y-4">
-            <a href="tel:+15555550100" class="flex items-center gap-4 text-lg group">
-              <div class="w-12 h-12 rounded-md bg-ember-500 flex items-center justify-center text-ink-900 group-hover:bg-ember-400 transition">
+            <a href="tel:+16366972408" class="flex items-center gap-4 text-lg group">
+              <div class="w-12 h-12 rounded-md bg-salmon-500 flex items-center justify-center text-ink-900 group-hover:bg-salmon-400 transition">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 0 1 2-2h2.28a2 2 0 0 1 1.94 1.515l.7 2.8a2 2 0 0 1-.45 1.95l-1.27 1.27a16 16 0 0 0 6.586 6.586l1.27-1.27a2 2 0 0 1 1.95-.45l2.8.7A2 2 0 0 1 21 18.72V21a2 2 0 0 1-2 2h-1C9.716 23 1 14.284 1 4V3z"/></svg>
               </div>
               <div>
-                <div class="text-xs uppercase tracking-wider text-stone-400">Call us</div>
-                <div class="font-semibold">(555) 555-0100</div>
+                <div class="text-xs uppercase tracking-wider text-stone-400">Call or text</div>
+                <div class="font-semibold">636-697-2408</div>
               </div>
             </a>
-            <a href="mailto:hello@howehome.com" class="flex items-center gap-4 text-lg group">
-              <div class="w-12 h-12 rounded-md bg-ember-500 flex items-center justify-center text-ink-900 group-hover:bg-ember-400 transition">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l9 6 9-6M5 19h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2z"/></svg>
+            <div class="flex items-center gap-4 text-lg">
+              <div class="w-12 h-12 rounded-md bg-salmon-500 flex items-center justify-center text-ink-900">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 0 1-2.827 0l-4.244-4.243a8 8 0 1 1 11.314 0z"/><circle cx="12" cy="11" r="3"/></svg>
               </div>
               <div>
-                <div class="text-xs uppercase tracking-wider text-stone-400">Email</div>
-                <div class="font-semibold">hello@howehome.com</div>
+                <div class="text-xs uppercase tracking-wider text-stone-400">Service area</div>
+                <div class="font-semibold">Central New Hampshire</div>
               </div>
-            </a>
+            </div>
           </div>
         </div>
-        <form class="bg-ink-800/60 backdrop-blur border border-white/10 rounded-lg p-8 space-y-4" onsubmit="event.preventDefault(); alert('Thanks! On the real site this would send your request to Howe. (POC form — not yet wired up.)');">
+        <form name="estimate" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="bg-ink-800/60 backdrop-blur border border-white/10 rounded-lg p-8 space-y-4">
+          <input type="hidden" name="form-name" value="estimate" />
+          <p class="hidden"><label>Don't fill this out: <input name="bot-field" /></label></p>
           <div>
-            <label class="block text-xs uppercase tracking-wider text-stone-400 mb-2">Name</label>
-            <input type="text" required class="w-full bg-ink-900 border border-white/10 rounded-md px-4 py-3 text-white focus:outline-none focus:border-ember-500" placeholder="Jane Homeowner" />
+            <label class="block text-xs uppercase tracking-wider text-stone-400 mb-2" for="f-name">Name</label>
+            <input id="f-name" name="name" type="text" required class="w-full bg-ink-900 border border-white/10 rounded-md px-4 py-3 text-white focus:outline-none focus:border-salmon-500" placeholder="Jane Homeowner" />
           </div>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label class="block text-xs uppercase tracking-wider text-stone-400 mb-2">Phone</label>
-              <input type="tel" class="w-full bg-ink-900 border border-white/10 rounded-md px-4 py-3 text-white focus:outline-none focus:border-ember-500" placeholder="(555) 123-4567" />
+              <label class="block text-xs uppercase tracking-wider text-stone-400 mb-2" for="f-phone">Phone</label>
+              <input id="f-phone" name="phone" type="tel" class="w-full bg-ink-900 border border-white/10 rounded-md px-4 py-3 text-white focus:outline-none focus:border-salmon-500" placeholder="(603) 123-4567" />
             </div>
             <div>
-              <label class="block text-xs uppercase tracking-wider text-stone-400 mb-2">Email</label>
-              <input type="email" class="w-full bg-ink-900 border border-white/10 rounded-md px-4 py-3 text-white focus:outline-none focus:border-ember-500" placeholder="jane@example.com" />
+              <label class="block text-xs uppercase tracking-wider text-stone-400 mb-2" for="f-email">Email</label>
+              <input id="f-email" name="email" type="email" class="w-full bg-ink-900 border border-white/10 rounded-md px-4 py-3 text-white focus:outline-none focus:border-salmon-500" placeholder="jane@example.com" />
             </div>
           </div>
           <div>
-            <label class="block text-xs uppercase tracking-wider text-stone-400 mb-2">Project type</label>
-            <select class="w-full bg-ink-900 border border-white/10 rounded-md px-4 py-3 text-white focus:outline-none focus:border-ember-500">
+            <label class="block text-xs uppercase tracking-wider text-stone-400 mb-2" for="f-type">Project type</label>
+            <select id="f-type" name="project_type" class="w-full bg-ink-900 border border-white/10 rounded-md px-4 py-3 text-white focus:outline-none focus:border-salmon-500">
+              <option>Deck / outdoor</option>
               <option>Kitchen</option>
               <option>Bathroom</option>
-              <option>Deck / outdoor</option>
-              <option>Addition</option>
+              <option>Carpentry / built-ins / repair</option>
               <option>Other / not sure yet</option>
             </select>
           </div>
           <div>
-            <label class="block text-xs uppercase tracking-wider text-stone-400 mb-2">Tell us about the project</label>
-            <textarea rows="3" class="w-full bg-ink-900 border border-white/10 rounded-md px-4 py-3 text-white focus:outline-none focus:border-ember-500" placeholder="Rough scope, timeline, anything we should know..."></textarea>
+            <label class="block text-xs uppercase tracking-wider text-stone-400 mb-2" for="f-msg">Tell us about the project</label>
+            <textarea id="f-msg" name="message" rows="3" class="w-full bg-ink-900 border border-white/10 rounded-md px-4 py-3 text-white focus:outline-none focus:border-salmon-500" placeholder="Rough scope, timeline, anything we should know..."></textarea>
           </div>
-          <button type="submit" class="w-full bg-ember-500 hover:bg-ember-400 text-ink-900 font-semibold py-4 rounded-md transition">Request a free estimate</button>
+          <button type="submit" class="w-full bg-salmon-500 hover:bg-salmon-400 text-ink-900 font-semibold py-4 rounded-md transition">Request a free estimate</button>
+          <p class="text-xs text-stone-500 text-center">We'll respond within one business day.</p>
         </form>
       </div>
     </div>
@@ -412,9 +503,9 @@
   <!-- Footer -->
   <footer class="bg-ink-900 border-t border-white/10 text-stone-400">
     <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm">
-      <div class="flex items-center gap-3">
-        <div class="w-8 h-8 rounded-md bg-ember-500 flex items-center justify-center font-display font-bold text-ink-900">H</div>
-        <span>&copy; 2026 Howe Home Improvement. Licensed &amp; insured.</span>
+      <div class="flex items-center gap-3 text-white">
+        <img src="brand/howe-logo.png" alt="Howe Renovations" class="h-8 w-auto" />
+        <span>&copy; 2026 Howe Renovations. Central NH. Licensed &amp; insured.</span>
       </div>
       <div class="flex items-center gap-6">
         <a href="#services" class="hover:text-white transition">Services</a>
@@ -425,6 +516,7 @@
   </footer>
 
   <script>
+    // Mobile menu
     const mb = document.getElementById('mobile-menu-btn');
     const mm = document.getElementById('mobile-menu');
     const mc = document.getElementById('mobile-menu-close');
@@ -434,6 +526,51 @@
     mc.addEventListener('click', closeMobile);
     mm.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMobile));
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMobile(); });
+
+    // Carousel
+    (function() {
+      const slides = Array.from(document.querySelectorAll('#carousel .slide'));
+      const dotsBar = document.getElementById('carousel-dots');
+      const prevBtn = document.getElementById('carousel-prev');
+      const nextBtn = document.getElementById('carousel-next');
+      const carousel = document.getElementById('carousel');
+      let i = 0;
+      let timer = null;
+      const interval = 5000;
+
+      slides.forEach((s, idx) => {
+        const d = document.createElement('button');
+        d.className = 'dot' + (idx === 0 ? ' active' : '');
+        d.setAttribute('aria-label', 'Go to slide ' + (idx + 1));
+        d.addEventListener('click', () => go(idx, true));
+        dotsBar.appendChild(d);
+      });
+      const dots = Array.from(dotsBar.querySelectorAll('.dot'));
+
+      function go(n, manual) {
+        slides[i].classList.remove('active');
+        dots[i].classList.remove('active');
+        i = (n + slides.length) % slides.length;
+        slides[i].classList.add('active');
+        dots[i].classList.add('active');
+        if (manual) restart();
+      }
+      function next() { go(i + 1); }
+      function prev() { go(i - 1, true); }
+      function start() { timer = setInterval(next, interval); }
+      function stop() { if (timer) { clearInterval(timer); timer = null; } }
+      function restart() { stop(); start(); }
+
+      prevBtn.addEventListener('click', prev);
+      nextBtn.addEventListener('click', () => { go(i + 1, true); });
+      carousel.addEventListener('mouseenter', stop);
+      carousel.addEventListener('mouseleave', start);
+      // Pause when out of viewport to save resources
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) start(); else stop(); });
+      }, { threshold: 0.25 });
+      io.observe(carousel);
+    })();
   </script>
 
 </body>
