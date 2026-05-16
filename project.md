@@ -1,8 +1,8 @@
 # Howe Renovations POC — Project State
 
-**Status:** v2 deployed — real logo, all 6 projects wired in as case studies, hero carousel of best After photos cycling, salmon palette pulled from Mike's logo. Ready to send to Mike for design review.
+**Status:** SENT TO MIKE FOR REVIEW (2026-05-16). Awaiting feedback. Full site shipped: real logo + all 6 project case studies + hero carousel + form wired to `howerenovationsllc@gmail.com` + AEO/SEO foundation (LocalBusiness/FAQ/Breadcrumb schema, 3 area pages, 5 Q&A pages, sitemap.xml, robots.txt) + 4-column footer exposing the new pages + mobile-optimized (lazy images, visible phone CTA on sub-pages). Review checklist sent: `mike-review-checklist.txt`.
 **Last updated:** 2026-05-16
-**Last deploy:** Netlify `howe-renovations-preview.netlify.app` — deploy `6a088f0a228bf9d50fd98f5e` (2026-05-16, state: ready, 62 files, 5s).
+**Last deploy:** Netlify `howe-renovations-preview.netlify.app` — deploy `6a089d9e4e797113be9cf524` (2026-05-16, state: ready, mobile-fix pass).
 **Site ID:** `3d292da9-cbe4-4f18-bce5-0b83360a54b9` (Netlify team `devonstreckfuss` / "Streck Ventures", Free tier).
 
 ---
@@ -123,12 +123,31 @@ Submissions hit Mike's Gmail and also stay in the Netlify Forms dashboard. To ad
 
 ## Next session
 
-1. **Send Mike the preview URL** (`https://howe-renovations-preview.netlify.app`). It's lived-in — real photos, real logo, real project writeups, correct location (O'Fallon, MO).
-2. **Rotate the leaked Netlify PAT** (`nfp_Gk7…3bz476c`, exposed in 2026-05-15 transcript). Netlify UI → User settings → Applications → Personal access tokens → revoke `Claude Code MCP` → generate new → `claude mcp remove netlify --scope user` + re-add via PowerShell.
-4. **Get a high-res logo from Mike** — the 156×127 crop works for header use but won't hold up at large sizes (hero brand, business cards, etc.). Ask for the original Facebook/builder source if he has it.
-5. **Get real testimonials** (1–3 short quotes from past clients). The testimonial section was removed entirely — add it back when content is available.
-6. **Image optimization** (deferred — only if performance matters): the gallery loads ~60 full-res FB photos. Total page weight is significant. If Mike complains about loading speed, consider Netlify Image CDN (`/.netlify/images?url=...&w=900`) or a build-step compression pass.
-7. **Domain transition:** Mike creates Netlify account → invite as Owner → transfer site → point `howerenovations.com` DNS at Netlify.
+**Waiting on Mike's feedback from the review checklist (`mike-review-checklist.txt`).** When he responds, his answers go into one of three buckets:
+
+### Bucket A — site-content edits driven by Mike's answers
+Likely items he'll flag:
+- License/insurance language correction (footer says "Licensed & insured" — soften or qualify if not literally true everywhere we claim service)
+- Service-area list — add/remove cities he confirms/excludes (currently O'Fallon, St. Charles, St. Peters + St. Louis metro)
+- Phone confirmation (currently 636-697-2408)
+- Specific corrections to the 5 Q&A pages (the bathroom 3-week breakdown, the 5-point rot inspection, the 25%-rotted-or-replace rule, etc.)
+- Specific corrections to the 6 homepage FAQ schema answers
+- Voice/tone tweaks on the About section once he answers the 6 questions in `instructions-for-mike.txt`
+
+### Bucket B — content assets to integrate
+- **High-res logo** (current 156×127 crop is soft at hero size). Drop it in `brand/howe-logo.png`, redeploy.
+- **Real testimonials** (1-3 short quotes). Add back the testimonial section that was removed earlier this session.
+- **Phone-shot videos** of jobs in progress, if any. Add a video section or embed in the gallery.
+- **Financing info** (GreenSky/Hearth/etc.) if Mike offers it. New section in services or About.
+
+### Bucket C — ops/handoff (Devon-owned, not Mike)
+- **Rotate the leaked Netlify PAT** (`nfp_Gk7…3bz476c`, exposed in 2026-05-15 transcript). Netlify UI → User settings → Applications → Personal access tokens → revoke → generate new → `claude mcp remove netlify --scope user` + re-add via PowerShell. Token in MCP config at `~/.claude.json` → `mcpServers.netlify.env.NETLIFY_PERSONAL_ACCESS_TOKEN`.
+- **Domain transition** when Mike approves: he creates own Netlify account → invite as Owner → transfer site → point `howerenovations.com` DNS at Netlify. All canonical URLs / OG URLs / sitemap URLs / schema `@id` fields are currently using `howe-renovations-preview.netlify.app` — do a find/replace across the codebase to `howerenovations.com` after the DNS flip.
+- **Image optimization** (deferred — only if speed is an actual complaint): the gallery loads ~60 full-res FB photos. Consider Netlify Image CDN (`/.netlify/images?url=...&w=900`) or a one-time compression pass.
+
+### Resume command
+- Say "let's continue on home-improvement-poc" — I'll do a Project State Read first.
+- Or be specific: "Mike said X about Y, update it" — I'll find Y and apply the edit.
 
 ---
 

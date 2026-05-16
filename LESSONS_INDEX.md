@@ -8,6 +8,9 @@
 
 ## Recent entries
 
+- 2026-05-16 — **Production identifiers (reference card).** Site ID `3d292da9-…`, form ID `6a08924e-…`, hook ID `6a0892c9-…` → `howerenovationsllc@gmail.com`. Phone 636-697-2408. Salmon palette 300-700. (grep: "Howe Renovations production identifiers")
+- 2026-05-16 — **Photo folder case mismatch.** P1-3 lowercase `build`, P4-6 capital `Build`. Gallery's `buildCase` field handles it; both cases resolve 200 on Netlify CDN. (grep: "Photo folder case mismatch")
+- 2026-05-16 — **Logo is a 156×127 screenshot crop.** No higher-res source available — Mike's site is a builder template assembling the mark from CDN SVG primitives. Alpha-masked via PowerShell + System.Drawing. Fine for header, soft at hero size. (grep: "Logo source: cropped from a 156×127 screenshot")
 - 2026-05-16 — **POC repo already linked to Vercel from yesterday's deploy.** `.vercel/project.json` carries `prj_UOIzCYGkROZALm6RG77MgDEJeNwd` under team_sXYqyL0jetkbAnEfRfhCbx7z. Pivot to Netlify in this session — kill the Vercel project (`vercel remove home-improvement-poc --yes`) before/during Netlify deploy so the site doesn't live in two places (grep: "POC repo already linked to Vercel")
 - 2026-05-16 — **Mike's existing site `howerenovations.com` is a stock template ("WELCOME" + contact button only).** Current POC is already a massive upgrade with placeholders — first preview doesn't need to wait on Mike's FB content (grep: "Mike's existing site `howerenovations.com` is a stock template")
 - 2026-05-16 — **Client identity CORRECTED.** Mike, Howe Renovations, **O'Fallon, MO** (St. Louis metro), **636-697-2408**. Earlier "Center Barnstead NH / 603-776-0611 / 603 Coatings LLC" was wrong — Buzzfile mismatch on a similarly-named LLC; Devon flagged. Tagline "Make your house a home" stands. FB page id 134086539948962 stands. (grep: "Client identity CORRECTED")
@@ -24,3 +27,10 @@
 
 ### Research / verification hygiene
 - **Buzzfile / OpenCorporates are leads, not facts** — propagating a Buzzfile name+phone match without client-side verification took a full session to unwind (grep: "Buzzfile is not a verification source")
+
+### Production identifiers
+- **All IDs in one place** (site / form / notification hook / phone / palette) (grep: "Howe Renovations production identifiers")
+
+### Asset / file management
+- **Photo folder case mismatch** — `build` vs `Build` per project (grep: "Photo folder case mismatch")
+- **Logo provenance + resolution limit** (grep: "Logo source: cropped from a 156×127 screenshot")
