@@ -1,5 +1,13 @@
 User-agent: *
 Allow: /
 Disallow: /brand/howe-logo-raw.png
+Disallow: /project.md
+Disallow: /LESSONS.md
+Disallow: /LESSONS_INDEX.md
+Disallow: /README.md
+Disallow: /CLAUDE.md
+Disallow: /mike-review-checklist.txt
+Disallow: /instructions-for-mike.txt
+Disallow: /Descriptions/
 
 Sitemap: https://howe-renovations-preview.netlify.app/sitemap.xml
