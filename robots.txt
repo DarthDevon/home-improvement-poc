@@ -10,4 +10,4 @@ Disallow: /mike-review-checklist.txt
 Disallow: /instructions-for-mike.txt
 Disallow: /Descriptions/
 
-Sitemap: https://howe-renovations-preview.netlify.app/sitemap.xml
+Sitemap: https://howerenovations.com/sitemap.xml
