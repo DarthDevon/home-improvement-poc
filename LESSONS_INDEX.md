@@ -8,6 +8,12 @@
 
 ## Recent entries
 
+- 2026-05-28 — **Howe knowledge source re-crawled on new domain (19 chunks, 16 referencing howerenovations.com).** Update `knowledge_sources.url` via Mgmt API, then tsx-import `ingestSource` (proxy.ts blocks curl+cron-secret on /api/knowledge/ingest) (grep: "Howe knowledge source re-crawl via tsx script")
+- 2026-05-28 — **Canonical URLs swept preview→live across 12 files via `sed -i`.** 85 occurrences. Internal docs (project.md, LESSONS.md, etc.) intentionally untouched as historical record (grep: "Howe canonical URL find/replace from preview to live")
+- 2026-05-28 — **Repo flipped public to sidestep Netlify Free private-repo contributor block.** No secrets in repo; netlify.toml redirects still 404 internal docs at the public site URL (grep: "home-improvement-poc repo flipped public")
+- 2026-05-28 — **netlify.toml `[[redirects]] status=404 force=true` per internal doc.** Required because publish='.' deploys whole repo. CLI `netlify deploy --dir=.` BYPASSES these redirects — only CD-triggered builds get the protection (grep: "netlify.toml redirects 404 internal docs publish='.'")
+- 2026-05-28 — **CD wired end-to-end. Setup sequence + "unrecognized Git contributor" fix.** updateSite repo block → install Netlify GitHub App on the specific repo → Members → Git Contributors → Connect GitHub (free path; auto-approve toggle is paid) (grep: "Howe CD wiring + Git Contributors fix")
+- 2026-05-28 — **howerenovations.com live via Netlify DNS using NS1 nameservers `dns1-4.p08.nsone.net` (p08 shard zone-specific).** Nameserver delegation lives at BrandCrowd Portfolio → domain → Nameservers tab, NOT in DNS Records table. No MX = email-safe (grep: "howerenovations.com nameserver swap via BrandCrowd")
 - 2026-05-16 — **Hydra chat widget installed on all 10 pages (slug `howe-renovations-bd26c1`).** Salmon `#F9C787`, attached to Mike's default Support Bot, tracking + visitor-context on. Knowledge source = the site itself (19 chunks). Edit widget via `widget_configs` id `057b3975-…` (grep: "Hydra chat widget installed on all 10 pages")
 - 2026-05-16 — **Netlify site is CLI-deployed, NOT GitHub-auto-deployed.** `git push` doesn't trigger Netlify. Production deploys need manual `netlify deploy --prod --site=3d292da9-… --dir=.`. Wire the GitHub connection in Netlify dashboard before transfer to Mike (grep: "This Netlify site is CLI-deployed, NOT GitHub-auto-deployed")
 - 2026-05-16 — **Production identifiers (reference card).** Site ID `3d292da9-…`, form ID `6a08924e-…`, hook ID `6a0892c9-…` → `howerenovationsllc@gmail.com`. Phone 636-697-2408. Salmon palette 300-700. (grep: "Howe Renovations production identifiers")
@@ -24,7 +30,17 @@
 - **Chat widget on all 10 pages** — tenant slug `howe-renovations-crw9`, widget slug `howe-renovations-bd26c1`, knowledge source crawls the site itself (grep: "Hydra chat widget installed on all 10 pages")
 
 ### Deploy workflow
-- **Netlify is CLI-deploy, not GitHub-auto** — wire GitHub connection before Mike takes ownership (grep: "This Netlify site is CLI-deployed")
+- **Netlify is CLI-deploy, not GitHub-auto** — wire GitHub connection before Mike takes ownership (grep: "This Netlify site is CLI-deployed") *(historical — superseded 2026-05-28 by full CD wiring below)*
+- **CD wired 2026-05-28** — full setup sequence + the "unrecognized Git contributor" fix path (grep: "Howe CD wiring + Git Contributors fix")
+- **netlify.toml redirects pattern** — 404 internal docs when publish='.', CLI deploys bypass (grep: "netlify.toml redirects 404 internal docs publish='.'")
+- **Repo flipped public** — backstop for Netlify Free contributor check (grep: "home-improvement-poc repo flipped public")
+
+### Domain / DNS
+- **howerenovations.com cutover 2026-05-28** — NS1 nameservers `dns1-4.p08.nsone.net`, BrandCrowd Portfolio→domain→Nameservers tab, no MX to break (grep: "howerenovations.com nameserver swap via BrandCrowd")
+- **Canonical URL sweep** — sed -i across 12 files, internal docs intentionally untouched (grep: "Howe canonical URL find/replace from preview to live")
+
+### Hydra integration (Howe tenant)
+- **Knowledge re-crawl after domain change** — Mgmt API UPDATE then tsx-import ingestSource (proxy blocks /api/knowledge/* cron-secret) (grep: "Howe knowledge source re-crawl via tsx script")
 
 ### Hosting decision
 - **Pivoted from Vercel → Netlify** for commercial-use TOS + free built-in form handling (grep: "POC repo already linked to Vercel")

@@ -1,10 +1,11 @@
 # Howe Renovations POC — Project State
 
-**Status:** SENT TO MIKE FOR REVIEW (2026-05-16). Awaiting feedback. Full site shipped: real logo + all 6 project case studies + hero carousel + form wired to `howerenovationsllc@gmail.com` + AEO/SEO foundation (LocalBusiness/FAQ/Breadcrumb schema, 3 area pages, 5 Q&A pages, sitemap.xml, robots.txt) + 4-column footer exposing the new pages + mobile-optimized (lazy images, visible phone CTA on sub-pages) + **Hydra chat widget installed on all 10 pages with knowledge source = the marketing site itself (19 chunks indexed)**. Mike's Hydra tenant fully set up (login email also corrected from a `gamil.com` typo in his original signup). Review checklist sent: `mike-review-checklist.txt`.
-**Last updated:** 2026-05-16
-**Last deploy:** Netlify `howe-renovations-preview.netlify.app` — deploy `6a08fb455d1014e174c6b9cc` (2026-05-16, Production READY, Hydra widget embed live across all pages).
-**Site ID:** `3d292da9-cbe4-4f18-bce5-0b83360a54b9` (Netlify team `devonstreckfuss` / "Streck Ventures", Free tier).
-**Hydra integration (tenant `howe-renovations-crw9`):** widget slug `howe-renovations-bd26c1` · color `#F9C787` salmon · bot "Support Bot" (`db5eb841-…`) · tracking + bot-visitor-context enabled · knowledge source `38f39669-…` crawls the Netlify preview URL with `crawl_all=true`.
+**Status:** 🟢 **LIVE at `https://howerenovations.com`** (2026-05-28). Domain cutover complete, SSL provisioned, CD pipeline wired end-to-end, Hydra knowledge source re-crawled on the new domain. Awaiting Mike's content feedback from the review checklist (`mike-review-checklist.txt`).
+**Last updated:** 2026-05-28
+**Last deploy:** `6a190e87545cc7a3c36b7eef` (2026-05-29 03:57 UTC) — commit `884458b` (canonical URL sweep preview→live), built via webhook CD in 5s.
+**Site ID:** `3d292da9-cbe4-4f18-bce5-0b83360a54b9` (Netlify team `devonstreckfuss` / "Streck Ventures", Free tier — 300 credits/mo budget; this site projects ~30 credits/mo steady-state).
+**Repo:** `DarthDevon/home-improvement-poc` — **public** (flipped from private 2026-05-28 to sidestep Netlify Free-plan webhook-deploy contributor block).
+**Hydra integration (tenant `howe-renovations-crw9`):** widget slug `howe-renovations-bd26c1` · color `#F9C787` salmon · bot "Support Bot" (`db5eb841-…`) · tracking + bot-visitor-context enabled · knowledge source `38f39669-5ebd-40cb-a4fa-3e74444dfad4` crawls `https://howerenovations.com` with `crawl_all=true` (19 chunks, re-crawled 2026-05-28).
 
 ---
 
@@ -27,13 +28,29 @@
 
 | Surface | URL |
 |---|---|
-| Preview (share with Mike) | https://howe-renovations-preview.netlify.app |
+| **Live site** | **https://howerenovations.com** ✅ (also `www.` → 301 → apex) |
+| Netlify-fallback URL | https://howe-renovations-preview.netlify.app (still works) |
 | Netlify admin | https://app.netlify.com/projects/howe-renovations-preview |
 | Netlify Forms admin | https://app.netlify.com/projects/howe-renovations-preview/forms |
-| GitHub repo | https://github.com/DarthDevon/home-improvement-poc (private) |
-| Future custom domain | howerenovations.com (Mike's; point DNS at Netlify when ready) |
-| Sitemap | https://howe-renovations-preview.netlify.app/sitemap.xml |
-| robots.txt | https://howe-renovations-preview.netlify.app/robots.txt |
+| GitHub repo | https://github.com/DarthDevon/home-improvement-poc (**public** as of 2026-05-28) |
+| Sitemap | https://howerenovations.com/sitemap.xml |
+| robots.txt | https://howerenovations.com/robots.txt |
+
+## DNS / SSL
+
+- **Registrar:** BrandCrowd (Design.com reseller, ultimately on GoDaddy domaincontrol.com infrastructure). Renewal: 2026-08-17.
+- **Nameservers:** Netlify DNS (`dns1-4.p08.nsone.net`) — swapped at BrandCrowd Portfolio → howerenovations.com → Nameservers tab.
+- **DNS zone (Netlify):** `6a17cef390c2d217f6d89400` — apex + www auto-provisioned as NETLIFY-type records.
+- **SSL:** Let's Encrypt, CN=howerenovations.com. Auto-renewed by Netlify.
+- **Email:** NO MX records — Howe doesn't receive mail at `@howerenovations.com`. Defensive DMARC TXT exists at BrandCrowd's nameservers but is no-op without MX. Form submissions still route to `howerenovationsllc@gmail.com` via Netlify Forms.
+
+## Deploy pipeline
+
+- **CD wired:** `git push origin main` → Netlify webhook → build in ~5s (no build command, publish from repo root).
+- **Build config** lives in `netlify.toml`: `publish='.'`, `command=''`, plus `[[redirects]]` returning 404 for internal docs (`project.md`, `LESSONS*.md`, `README.md`, `CLAUDE.md`, `mike-review-checklist.txt`, `instructions-for-mike.txt`, `Descriptions/*`).
+- **Production branch:** `main`. Branch deploys for any other branch get free preview URLs (`https://<branch>--howe-renovations-preview.netlify.app`).
+- **STOP using `netlify deploy --prod`** — CLI deploys bypass the netlify.toml redirects (raw upload of `--dir=.`) AND each one costs 15 credits unnecessarily.
+- **Credit budget:** Netlify Free (300 credits/mo, $0). Steady-state usage on this site: ~30 credits/mo (1-2 prod deploys × 15 + negligible bandwidth/requests). Plenty of headroom for the team's other site (2ladypainters) on the same budget.
 
 ### All discoverable URLs (10)
 
@@ -142,15 +159,29 @@ Likely items he'll flag:
 - **Financing info** (GreenSky/Hearth/etc.) if Mike offers it. New section in services or About.
 
 ### Bucket C — ops/handoff (Devon-owned, not Mike)
-- **Live walk-through of the Hydra widget with Mike.** Open the site, click the chat bubble, ask a few representative questions — "how long does a bathroom remodel take," "do you serve St. Charles," "what's the difference between composite and wood deck" — to verify the RAG path hits the AEO content. Show Mike his Hydra inbox so he can see conversations land there.
+- **Live walk-through of the Hydra widget with Mike.** Open the site at the LIVE `howerenovations.com` URL, click the chat bubble, ask a few representative questions — "how long does a bathroom remodel take," "do you serve St. Charles," "what's the difference between composite and wood deck" — to verify the RAG path hits the AEO content. Show Mike his Hydra inbox so he can see conversations land there. (Re-crawled 2026-05-28 on the new domain — 19 chunks, 16 reference the live URL.)
 - **Rotate the leaked Netlify PAT** (`nfp_Gk7…3bz476c`, exposed in 2026-05-15 transcript). Now that Devon has run `netlify login` (OAuth, no PAT needed for CLI), the leaked PAT is safe to revoke. Netlify UI → User settings → Applications → Personal access tokens → revoke. If MCP still uses it, also `claude mcp remove netlify --scope user` + re-add via PowerShell with a fresh PAT.
-- **Wire Netlify GitHub auto-deploy before transferring to Mike.** Right now the site is CLI-deployed only — `git push` does nothing, every deploy requires `netlify deploy --prod --site=3d292da9-… --dir=.`. Mike won't have a CLI workflow. Netlify dashboard → Site settings → Build & deploy → Continuous deployment → Link repository (`DarthDevon/home-improvement-poc`, default branch `main`, build command empty, publish dir `.`). After link, future GitHub pushes auto-deploy.
-- **Domain transition** when Mike approves: he creates own Netlify account → invite as Owner → transfer site → point `howerenovations.com` DNS at Netlify. All canonical URLs / OG URLs / sitemap URLs / schema `@id` fields are currently using `howe-renovations-preview.netlify.app` — do a find/replace across the codebase to `howerenovations.com` after the DNS flip.
+- ✅ ~~Wire Netlify GitHub auto-deploy~~ — DONE 2026-05-28. CD pipeline live; details in "Deploy pipeline" section above.
+- ✅ ~~Domain transition~~ — DONE 2026-05-28. Live at `howerenovations.com`. Canonical URL sweep complete (commit `884458b`).
+- **Eventual transfer to Mike** (no rush — keep on Devon's account until Mike asks). When Mike wants ownership: he creates his own Netlify account → invite as Owner on Streck Ventures → transfer site → his free 300-credit budget covers his own deploys → can remove from Streck Ventures team afterward. NOTE the repo is now public on GitHub — Mike can fork it before transfer if he wants his own GitHub copy too.
 - **Image optimization** (deferred — only if speed is an actual complaint): the gallery loads ~60 full-res FB photos. Consider Netlify Image CDN (`/.netlify/images?url=...&w=900`) or a one-time compression pass.
 
 ### Resume command
 - Say "let's continue on home-improvement-poc" — I'll do a Project State Read first.
-- Or be specific: "Mike said X about Y, update it" — I'll find Y and apply the edit.
+- Or be specific: "Mike said X about Y, update it" — I'll find Y and apply the edit, push to main, CD auto-deploys in ~5s.
+
+### How to make site edits going forward
+
+1. Make changes locally in `C:/Users/eliza/Claudes/architect/projects/home-improvement-poc/`.
+2. For iteration: create a branch (`git checkout -b mike-edits-YYYY-MM-DD`), push, Netlify auto-generates a free branch-preview URL at `https://<branch>--howe-renovations-preview.netlify.app`. Iterate freely — 0 credits per branch deploy.
+3. When ready to ship: `git checkout main && git merge <branch> && git push origin main` → CD fires, live in ~5s. **15 credits per merge to main**.
+4. NEVER `netlify deploy --prod` — bypasses netlify.toml, costs credits, and we're moving off it permanently.
+
+### After significant content changes, re-crawl Hydra knowledge
+
+If you edit substantial body text on the site (not just typos), trigger a Hydra re-crawl so the widget cites fresh content. Two paths:
+- From Hydra app UI (cleanest if you have admin access to Mike's tenant): Knowledge Sources → "Howe Renovations marketing site" → Re-crawl.
+- One-shot tsx script in `hydra/scripts/` that imports `ingestSource` directly — pattern documented in Hydra LESSONS (grep: `re-crawl URL knowledge source via tsx-import ingestSource`).
 
 ---
 

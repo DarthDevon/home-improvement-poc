@@ -37,3 +37,33 @@ Note: **Mike's existing site `howerenovations.com` is a stock template — "WELC
 Date: 2026-05-16
 Note: **Client identity confirmed via web search.** Business: Howe Renovations (also appears as "Howe Home Improvement" in some directories). Owner: Mike. Location: 40 Winchester Dr, Center Barnstead, NH 03225. Phone: (603) 776-0611. FB Page: `facebook.com/pages/category/Contractor/Howe-Home-Improvement-134086539948962/`. Existing site: `howerenovations.com`. Same phone (603) 776-0611 also listed under "603 Coatings LLC" on Buzzfile — likely his registered LLC name. Tagline he mentioned to Devon: "Make your house a home" (not yet on the live site).
 ---
+
+---
+Date: 2026-05-28
+Note: **Domain `howerenovations.com` is LIVE on Netlify via Netlify DNS.** BrandCrowd (Design.com reseller of GoDaddy domaincontrol.com nameservers) → Portfolio → click domain → **Nameservers** tab (separate from DNS Records tab) → Change Nameservers → Custom → paste 4 NS1 nameservers Netlify gave us at zone creation: `dns1-4.p08.nsone.net` (p08 shard is zone-specific, don't guess). Propagation was essentially instant via Google/Cloudflare resolvers. Netlify auto-created apex `@` + `www` NETLIFY-type records pointing at the load balancer (no manual A/CNAME). Let's Encrypt SSL provisioned within ~5 min (initially served fallback `*.netlify.app` cert — `openssl s_client | x509 -subject` confirms when real cert takes over). Howe has NO MX records — verified before nameserver swap so the cutover didn't break Mike's email. DMARC TXT existed defensively but no mail routing. (grep: "howerenovations.com nameserver swap via BrandCrowd")
+---
+
+---
+Date: 2026-05-28
+Note: **CD wired — git push origin main now auto-deploys in ~5s.** Full setup sequence: (1) `netlify api updateSite` with `repo` block sets repo_url/branch/cmd/dir. (2) Devon installs Netlify GitHub App via https://github.com/apps/netlify → "Only select repositories" → home-improvement-poc → Install. This populates `build_settings.installation_id`. (3) First auto-build error: "Build blocked: unrecognized Git contributor" because repo is private + commit author not a verified contributor. (4) Devon clicks **Link Git account** button on the failed deploy page (or Team Settings → Members → Git Contributors → GitHub Connect). Once linked, future webhook deploys auto-approve. We ALSO flipped the repo to public (`gh repo edit DarthDevon/home-improvement-poc --visibility public --accept-visibility-change-consequences`) as a backstop, but the Git Contributors link was the actual fix. (grep: "Howe CD wiring + Git Contributors fix")
+---
+
+---
+Date: 2026-05-28
+Note: **`netlify.toml` ships with `[build] publish = "."` + `[[redirects]]` returning 404 for internal docs.** Pattern needed because publish='.' deploys the whole repo, including `project.md` / `LESSONS*.md` / `README.md` / `CLAUDE.md` / `mike-review-checklist.txt` / `instructions-for-mike.txt` / `Descriptions/*`. Each gets a `[[redirects]] from="/path" to="/" status=404 force=true` block. robots.txt mirrors the Disallow list. Verified post-deploy: `curl -o /dev/null -w "%{http_code}" https://howerenovations.com/project.md` returns 404 while `/` returns 200. **WARNING**: CLI `netlify deploy --dir=.` BYPASSES the netlify.toml redirects (raw file upload), so this protection only applies to CD-triggered builds. Don't use `--prod` deploys anymore. (grep: "netlify.toml redirects 404 internal docs publish='.'")
+---
+
+---
+Date: 2026-05-28
+Note: **Repo flipped to public (`DarthDevon/home-improvement-poc`).** Trade-off accepted: (a) sidesteps Netlify Free-plan "unrecognized Git contributor" check on private-repo CD; (b) site is genuinely public marketing content with no secrets in the repo (.gitignore excludes .vercel/.netlify; .env not in repo). project.md / LESSONS / mike-review-checklist.txt are GitHub-visible but contain no credentials — Mike's email + phone are already on the live site. The `netlify.toml` redirects above still hide those files at the public Netlify URL even though they're visible on GitHub. (grep: "home-improvement-poc repo flipped public")
+---
+
+---
+Date: 2026-05-28
+Note: **Canonical URLs swept from preview to live domain via `sed -i`.** 85 occurrences across 12 deploy-relevant files updated `howe-renovations-preview.netlify.app` → `howerenovations.com`. Bash one-liner: `find . -type f \( -name "*.html" -o -name "sitemap.xml" -o -name "robots.txt" \) -not -path "./.git/*" | while read f; do grep -q "OLD" "$f" && sed -i 's|OLD\.netlify\.app|NEW.com|g' "$f"; done`. Intentionally left untouched: project.md, LESSONS.md, mike-review-checklist.txt (historical record, 404'd at the public URL anyway). After push, Hydra knowledge source re-crawled to update the 19 chunks in its RAG index. (grep: "Howe canonical URL find/replace from preview to live")
+---
+
+---
+Date: 2026-05-28
+Note: **Hydra knowledge source for Howe (id `38f39669-5ebd-40cb-a4fa-3e74444dfad4`, tenant `706f5877-…`) re-crawled on new domain — 19 chunks indexed, 16 reference the new URL.** Step 1: `UPDATE knowledge_sources SET url = 'https://howerenovations.com' WHERE id = '...'` via Supabase Mgmt API. Step 2: trigger ingest. Cannot use curl + x-cron-secret on `/api/knowledge/ingest` — Hydra's proxy.ts redirects unauth requests to /auth/login BEFORE the route's cron-secret bypass runs. Working path: one-shot tsx script in `hydra/scripts/` that imports `ingestSource` directly and runs `npx tsx --env-file=.env.local scripts/...ts`. Same code the admin UI button calls. (grep: "Howe knowledge source re-crawl via tsx script")
+---
